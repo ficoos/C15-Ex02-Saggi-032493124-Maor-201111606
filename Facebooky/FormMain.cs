@@ -207,7 +207,7 @@
 		private void buttonFilterSettings_Click(object i_Sender, EventArgs i_Args)
 		{
 			FormFilterSettings filterSettingsDialog = new FormFilterSettings();
-			filterSettingsDialog.PostFilterGroup = this.m_PostFilterGroups;
+            filterSettingsDialog.PostFilterGroups = this.m_PostFilterGroups;
 			filterSettingsDialog.ShowDialog();
 			this.savePostFilters();
 		}

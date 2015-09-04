@@ -6,7 +6,7 @@ namespace Facebooky
 {
     public partial class FormFilterSettings : Form
     {
-        public List<PostFilterGroup> PostFilterGroup { get; set; }
+        public List<PostFilterGroup> PostFilterGroups { get; set; }
 
 	    public FormFilterSettings()
 	    {
@@ -15,10 +15,7 @@ namespace Facebooky
 
         private void filterSettingsForm_Load(object i_Sender, EventArgs i_Args)
         {
-            foreach(PostFilterGroup group in PostFilterGroup)
-            {
-                checkedListBoxFilterGroups.Items.Add(group, group.Enabled);
-            }
+	        postFilterGroupBindingSource.DataSource = PostFilterGroups;
         }
 
         private void buttonAddGroup_Click(object i_Sender, EventArgs i_Args)
@@ -27,16 +24,13 @@ namespace Facebooky
             formAddGroup.ShowDialog();
             if (formAddGroup.DialogResult == DialogResult.OK)
             {
-                checkedListBoxFilterGroups.Items.Add(formAddGroup.NewFilterGroup, formAddGroup.NewFilterGroup.Enabled);
-                PostFilterGroup.Add(formAddGroup.NewFilterGroup);
+	            postFilterGroupBindingSource.Add(formAddGroup.NewFilterGroup);
             }
         }
         
 		private void buttonRemoveSelectedGroups_Click(object i_Sender, EventArgs i_Args)
         {
-            PostFilterGroup groupToDelete = (PostFilterGroup)checkedListBoxFilterGroups.SelectedItem;
-            checkedListBoxFilterGroups.Items.Remove(groupToDelete);
-            PostFilterGroup.Remove(groupToDelete);
+			postFilterGroupBindingSource.RemoveCurrent();
         }
 
 		private void buttonClose_Click(object i_Sender, EventArgs i_Args)
@@ -44,18 +38,15 @@ namespace Facebooky
             this.Close();
         }
 
-		private void buttonEditMarked_Click(object i_Sender, EventArgs i_Args)
-        {
-            if (checkedListBoxFilterGroups.SelectedItem != null)
-            {
-                PostFilterGroup postFilterGroup = (PostFilterGroup)checkedListBoxFilterGroups.SelectedItem;
-                FormEditFilterGroup editFilterGroupForm = new FormEditFilterGroup();
-                editFilterGroupForm.FilterGroup = postFilterGroup;
-                editFilterGroupForm.ShowDialog();
-            }
-        }
+	    private void buttonEditMarked_Click(object i_Sender, EventArgs i_Args)
+	    {
+		    PostFilterGroup postFilterGroup = (PostFilterGroup)postFilterGroupBindingSource.Current;
+		    FormEditFilterGroup editFilterGroupForm = new FormEditFilterGroup();
+		    editFilterGroupForm.FilterGroup = postFilterGroup;
+		    editFilterGroupForm.ShowDialog();
+	    }
 
-		private void checkedListBoxFilterGroups_ItemCheck(object i_Sender, ItemCheckEventArgs i_Args)
+	    private void checkedListBoxFilterGroups_ItemCheck(object i_Sender, ItemCheckEventArgs i_Args)
 		{
 			PostFilterGroup group = (PostFilterGroup)checkedListBoxFilterGroups.Items[i_Args.Index];
 			switch (i_Args.NewValue)
@@ -67,6 +58,11 @@ namespace Facebooky
 					group.Enabled = true;
 					break;
 			}
+		}
+
+		private void postFilterGroupBindingSource_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
+		{
+			checkedListBoxFilterGroups.UpdateValueBinding();
 		}
     }
 }
