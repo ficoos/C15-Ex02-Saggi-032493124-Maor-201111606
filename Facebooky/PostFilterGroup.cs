@@ -12,17 +12,6 @@ namespace Facebooky
 {
 	public class PostFilterGroup : IPostFilter
     {
-		private static readonly Dictionary<string, XmlSerializer> sr_Serializers;
-
-		static PostFilterGroup()
-		{
-			sr_Serializers = new Dictionary<string, XmlSerializer>();
-			foreach (Type type in getAllPossibleFilterType())
-			{
-				sr_Serializers.Add(type.Name, new XmlSerializer(type));
-			}
-		}
-
         public string Name { get; set; }
 
 		public bool Enabled { get; set; }
@@ -77,12 +66,9 @@ namespace Facebooky
 			return null;
 		}
 
-		private static IEnumerable<Type> getAllPossibleFilterType()
+		private XmlSerializer getSerializer(string i_Name)
 		{
-			return AppDomain.CurrentDomain.GetAssemblies()
-					.SelectMany(i_Assembly => i_Assembly.GetTypes())
-					.Where(i_Type => typeof(IPostFilter).IsAssignableFrom(i_Type))
-					.Where(i_Type => i_Type.IsClass && !i_Type.IsAbstract);
+			return SerializerFactory.CreateSerializer(i_Name, i_Type => typeof(IPostFilter).IsAssignableFrom(i_Type));
 		}
 
 		public void ReadXml(XmlReader i_Reader)
@@ -95,7 +81,7 @@ namespace Facebooky
 			i_Reader.ReadStartElement("PostFilters");
 			while (i_Reader.IsStartElement())
 			{
-				XmlSerializer serializer = sr_Serializers[i_Reader.Name];
+				XmlSerializer serializer = getSerializer(i_Reader.Name);
 				r_PostFilters.Add(serializer.Deserialize(i_Reader) as IPostFilter);
 				i_Reader.ReadStartElement();
 			}
