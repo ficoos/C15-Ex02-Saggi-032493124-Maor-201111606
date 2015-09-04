@@ -3,8 +3,6 @@ using System.Windows.Forms;
 
 namespace Facebooky
 {
-	using Facebooky;
-
 	public partial class FormEditCannedPost : Form
 	{
 		public CannedPost CannedPost { get; set; }
