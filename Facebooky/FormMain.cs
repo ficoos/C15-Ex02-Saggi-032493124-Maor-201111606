@@ -8,7 +8,7 @@
 	using System.Xml.Serialization;
 
 	using Facebooky;
-
+    using System.Threading;
 	using FacebookWrapper;
 	using FacebookWrapper.ObjectModel;
 
@@ -112,11 +112,19 @@
 			this.logIn();
 			if (this.m_LoggedInUser != null)
 			{
-				userBindingSource.DataSource = m_LoggedInUser;
-				this.enableControls();
+                this.enableControls();
+                Thread thread = new Thread(BindUserToDataSource());
+                thread.Start();
+//				userBindingSource.DataSource = m_LoggedInUser;
+				
 				this.loadPostFilters();
 			}
 		}
+
+        private ThreadStart BindUserToDataSource()
+        {
+            return () => { userBindingSource.DataSource = m_LoggedInUser; this.Invoke(new Action(this.resetBinding)); };
+        }
 
 		private void enableControls()
 		{
@@ -145,21 +153,22 @@
 
         private void fetchNewsFeed()
         {
-			m_LoggedInUser.ReFetch("feed");
-			resetBinding();
-			return;
+//			m_LoggedInUser.ReFetch("feed");
+//			resetBinding();
+//			return;
 
             if (this.m_LoggedInUser != null)
             {
                 if (!this.checkBoxShowFiltered.Checked)
                 {
-                    this.listBoxNewsFeed.DataSource = this.m_LoggedInUser.NewsFeed;
+                    m_LoggedInUser.ReFetch("feed");
+                    resetBinding();
                 }
                 else
                 {
 					List<Post> posts = this.m_LoggedInUser.NewsFeed.Where(i_Post => this.getPostPriority(i_Post) != ePostPriority.Hidden).ToList();
-					posts.Sort((i_Post, i_OtherPost) => this.getPostPriority(i_OtherPost).CompareTo(this.getPostPriority(i_Post)));                  
-	                this.listBoxNewsFeed.DataSource = posts;
+					posts.Sort((i_Post, i_OtherPost) => this.getPostPriority(i_OtherPost).CompareTo(this.getPostPriority(i_Post)));
+                    this.listBoxNewsFeed.DataSource = posts;
                 }
             }
         }
