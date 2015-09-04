@@ -1,0 +1,23 @@
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\bin\Debug\Facebooky.exe.config
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.csprojResolveAssemblyReference.cache
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.Properties.Resources.resources
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.csproj.GenerateResource.Cache
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\bin\Debug\DefaultContent\CannedPosts\Ask For a Recepie.post.xml
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\bin\Debug\DefaultContent\CannedPosts\Ask Recepy by ingredients.post.xml
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\bin\Debug\DefaultContent\CannedPosts\Birthday wish.post.xml
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\bin\Debug\DefaultContent\CannedPosts\Girl's night out.post.xml
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\bin\Debug\DefaultContent\CannedPosts\Invite To Party.post.xml
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\bin\Debug\DefaultContent\CannedPosts\New Job.post.xml
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\bin\Debug\DefaultContent\CannedPosts\Wedding invite.post.xml
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\bin\Debug\DefaultContent\filters.xml
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\bin\Debug\Facebooky.exe
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\bin\Debug\Facebooky.pdb
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.FormMain.resources
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.exe
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.pdb
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.FormAddNewGroup.resources
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.FormEditFilterGroup.resources
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.FormEditCannedPost.resources
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.FormFilterSettings.resources
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.FormPostCannedPost.resources
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\Facebooky\obj\Debug\Facebooky.FormSelectCannedPost.resources

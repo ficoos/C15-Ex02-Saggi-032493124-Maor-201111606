@@ -1,0 +1,27 @@
+c:\users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15 Ex01 Saggi 032493124 Maor 201111606.csprojResolveAssemblyReference.cache
+c:\users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15_Ex01_Saggi_032493124_Maor_201111606.Properties.Resources.resources
+c:\users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15 Ex01 Saggi 032493124 Maor 201111606.csproj.GenerateResource.Cache
+c:\users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\C15 Ex01 Saggi 032493124 Maor 201111606.exe
+c:\users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\C15 Ex01 Saggi 032493124 Maor 201111606.pdb
+c:\users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15 Ex01 Saggi 032493124 Maor 201111606.exe
+c:\users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15 Ex01 Saggi 032493124 Maor 201111606.pdb
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\C15 Ex01 Saggi 032493124 Maor 201111606.exe.config
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15_Ex01_Saggi_032493124_Maor_201111606.FormMain.resources
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15_Ex01_Saggi_032493124_Maor_201111606.FormEditFilterGroup.resources
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15_Ex01_Saggi_032493124_Maor_201111606.FormFilterSettings.resources
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15_Ex01_Saggi_032493124_Maor_201111606.FormEditCannedPost.resources
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15_Ex01_Saggi_032493124_Maor_201111606.FormSelectCannedPost.resources
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15_Ex01_Saggi_032493124_Maor_201111606.FormPostCannedPost.resources
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\DefaultContent\CannedPosts\Ask For a Recepie.post.xml
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\DefaultContent\CannedPosts\Ask Recepy by ingredients.post.xml
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\DefaultContent\CannedPosts\Birthday wish.post.xml
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\DefaultContent\CannedPosts\Girl's night out.post.xml
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\DefaultContent\CannedPosts\Invite To Party.post.xml
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\DefaultContent\CannedPosts\New Job.post.xml
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\DefaultContent\CannedPosts\Wedding invite.post.xml
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\DefaultContent\filters.xml
+C:\Users\saggi\documents\visual studio 2013\Projects\C15 Ex01 Saggi 032493124 Maor 201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15_Ex01_Saggi_032493124_Maor_201111606.FormAddNewGroup.resources
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\C15 Ex01 Saggi 032493124 Maor 201111606.exe.config
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15 Ex01 Saggi 032493124 Maor 201111606.exe
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\C15 Ex01 Saggi 032493124 Maor 201111606\obj\Debug\C15 Ex01 Saggi 032493124 Maor 201111606.pdb
+C:\Users\saggi\Documents\GitHub\C15-Ex02-Saggi-032493124-Maor-201111606\C15 Ex01 Saggi 032493124 Maor 201111606\bin\Debug\Facebooky.exe.config
