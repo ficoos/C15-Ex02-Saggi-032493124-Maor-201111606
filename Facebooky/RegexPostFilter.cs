@@ -11,6 +11,14 @@ namespace Facebooky
 	{
 		public Regex Regex { get; set; }
 
+		public string Name
+		{
+			get
+			{
+				return Regex.ToString();
+			}
+		}
+
 		public bool Enabled { get; set; }
 
 		public override string ToString()

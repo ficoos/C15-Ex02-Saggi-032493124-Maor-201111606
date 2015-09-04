@@ -25,10 +25,10 @@ namespace Facebooky
             this.comboBoxPriority.Items.Add(ePostPriority.Promoted);
             this.comboBoxPriority.SelectedItem = this.FilterGroup.PostPriority;
             this.Text = this.FilterGroup.Name;
-            foreach(IPostFilter filter in this.FilterGroup.PostFilters)
-            {
-	            checkedListBoxFilterFilters.Items.Add(filter, filter.Enabled);
-            }
+		    checkedListBoxFilterFilters.DataSource = this.FilterGroup.PostFilters;
+			checkedListBoxFilterFilters.DisplayMember = "Name";
+			checkedListBoxFilterFilters.ValueMember = "Enabled";
+			checkedListBoxFilterFilters.UpdateValueBinding();
         }
 
         private void buttonAddFilter_Click(object i_Sender, EventArgs i_Args)

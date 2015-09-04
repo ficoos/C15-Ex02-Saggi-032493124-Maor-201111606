@@ -47,7 +47,7 @@
 
 			foreach (string newPath in Directory.GetFiles(i_SourceDirectory, "*.*", SearchOption.AllDirectories))
 			{
-				File.Copy(newPath, newPath.Replace(i_SourceDirectory, i_TargetDirectory), true);
+				File.Copy(newPath, newPath.Replace(i_SourceDirectory, i_TargetDirectory), overwrite: true);
 			}
 		}
 
@@ -112,9 +112,9 @@
 			this.logIn();
 			if (this.m_LoggedInUser != null)
 			{
+				userBindingSource.DataSource = m_LoggedInUser;
 				this.enableControls();
 				this.loadPostFilters();
-				this.fetchAllInformation();
 			}
 		}
 
@@ -122,46 +122,27 @@
 		{
 			this.textBoxStatus.Enabled = true;
 			this.buttonFetchNewsFeed.Enabled = true;
-			this.buttonFetchCheckIns.Enabled = true;
 			this.buttonFetchEvents.Enabled = true;
 			this.buttonSetStatus.Enabled = true;
 			this.buttonFilterSettings.Enabled = true;
 			this.buttonCannedPost.Enabled = true;
 			this.checkBoxShowFiltered.Enabled = true;
 			this.listBoxEvents.Enabled = true;
-			this.listBoxCheckins.Enabled = true;
 			this.listBoxNewsFeed.Enabled = true;
-		}
-
-		private void fetchAllInformation()
-		{
-			this.fetchProfilePicture();
-			this.fetchNewsFeed();
-			this.fetchEvents();
-			this.fetchCheckIns();
-		}
-
-		private void fetchProfilePicture()
-		{
-			this.pictureSmallProfile.ImageLocation = this.m_LoggedInUser.PictureSmallURL;
-		}
-
-		private void fetchCheckIns()
-		{
-			this.listBoxCheckins.Items.Clear();
-			foreach (Checkin checkin in this.m_LoggedInUser.Checkins)
-			{
-				this.listBoxCheckins.Items.Add(checkin.Place.Name);
-			}
 		}
 
 		private void fetchEvents()
 		{
-			this.listBoxEvents.DataSource = this.m_LoggedInUser.Events;
+			m_LoggedInUser.ReFetch("events");
+			userBindingSource.ResetBindings(metadataChanged: false);
 		}
 
         private void fetchNewsFeed()
         {
+			m_LoggedInUser.ReFetch("feed");
+			userBindingSource.ResetBindings(metadataChanged: false);
+			return;
+
             if (this.m_LoggedInUser != null)
             {
                 if (!this.checkBoxShowFiltered.Checked)
@@ -195,24 +176,7 @@
 
 			return postPriority;
 		}
-
-		private void listBoxEvents_SelectedIndexChanged(object i_Sender, EventArgs i_Args)
-		{
-			if (this.listBoxEvents.SelectedItems.Count == 1)
-			{
-				Event selectedEvent = this.listBoxEvents.SelectedItem as Event;
-				if (selectedEvent != null)
-				{
-					this.pictureBoxEvent.LoadAsync(selectedEvent.PictureNormalURL);
-				}
-			}
-		}
-
-		private void buttonFetchCheckIns_Click(object i_Sender, EventArgs i_Args)
-		{
-			this.fetchCheckIns();
-		}
-
+		
 		private void buttonFetchEvents_Click(object i_Sender, EventArgs i_Args)
 		{
 			this.fetchEvents();

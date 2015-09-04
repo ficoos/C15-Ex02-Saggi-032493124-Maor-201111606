@@ -10,7 +10,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace Facebooky
 {
-	public class PostFilterGroup : IXmlSerializable
+	public class PostFilterGroup : IPostFilter
     {
 		private static readonly Dictionary<string, XmlSerializer> sr_Serializers;
 
