@@ -6,7 +6,6 @@
 	using System.Linq;
 	using System.Windows.Forms;
 	using System.Xml.Serialization;
-	using Facebooky;
     using System.Threading;
 	using FacebookWrapper;
 	using FacebookWrapper.ObjectModel;
