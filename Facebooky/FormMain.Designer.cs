@@ -30,23 +30,30 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.buttonLogIn = new System.Windows.Forms.Button();
 			this.buttonSetStatus = new System.Windows.Forms.Button();
 			this.textBoxStatus = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.pictureSmallProfile = new System.Windows.Forms.PictureBox();
 			this.listBoxNewsFeed = new System.Windows.Forms.ListBox();
+			this.newsFeedBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.buttonFetchNewsFeed = new System.Windows.Forms.Button();
 			this.pictureBoxEvent = new System.Windows.Forms.PictureBox();
-			this.listBoxCheckins = new System.Windows.Forms.ListBox();
 			this.listBoxEvents = new System.Windows.Forms.ListBox();
+			this.eventsBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.buttonFetchEvents = new System.Windows.Forms.Button();
-			this.buttonFetchCheckIns = new System.Windows.Forms.Button();
 			this.buttonFilterSettings = new System.Windows.Forms.Button();
 			this.checkBoxShowFiltered = new System.Windows.Forms.CheckBox();
 			this.buttonCannedPost = new System.Windows.Forms.Button();
+			this.checkinsBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.pictureSmallProfile)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.newsFeedBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxEvent)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.checkinsBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonLogIn
@@ -92,6 +99,7 @@
 			// 
 			// pictureSmallProfile
 			// 
+			this.pictureSmallProfile.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.userBindingSource, "ImageNormal", true));
 			this.pictureSmallProfile.Location = new System.Drawing.Point(12, 41);
 			this.pictureSmallProfile.Name = "pictureSmallProfile";
 			this.pictureSmallProfile.Size = new System.Drawing.Size(200, 166);
@@ -103,7 +111,8 @@
 			// 
 			this.listBoxNewsFeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.listBoxNewsFeed.DisplayMember = "name";
+			this.listBoxNewsFeed.DataSource = this.newsFeedBindingSource;
+			this.listBoxNewsFeed.DisplayMember = "Name";
 			this.listBoxNewsFeed.Enabled = false;
 			this.listBoxNewsFeed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.listBoxNewsFeed.FormattingEnabled = true;
@@ -112,6 +121,16 @@
 			this.listBoxNewsFeed.Name = "listBoxNewsFeed";
 			this.listBoxNewsFeed.Size = new System.Drawing.Size(733, 118);
 			this.listBoxNewsFeed.TabIndex = 51;
+			this.listBoxNewsFeed.ValueMember = "Caption";
+			// 
+			// newsFeedBindingSource
+			// 
+			this.newsFeedBindingSource.DataMember = "NewsFeed";
+			this.newsFeedBindingSource.DataSource = this.userBindingSource;
+			// 
+			// userBindingSource
+			// 
+			this.userBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.User);
 			// 
 			// buttonFetchNewsFeed
 			// 
@@ -130,6 +149,7 @@
 			// 
 			this.pictureBoxEvent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.pictureBoxEvent.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.eventsBindingSource, "ImageNormal", true));
 			this.pictureBoxEvent.Location = new System.Drawing.Point(794, 242);
 			this.pictureBoxEvent.Name = "pictureBoxEvent";
 			this.pictureBoxEvent.Size = new System.Drawing.Size(160, 209);
@@ -137,55 +157,38 @@
 			this.pictureBoxEvent.TabIndex = 55;
 			this.pictureBoxEvent.TabStop = false;
 			// 
-			// listBoxCheckins
-			// 
-			this.listBoxCheckins.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.listBoxCheckins.DisplayMember = "name";
-			this.listBoxCheckins.Enabled = false;
-			this.listBoxCheckins.FormattingEnabled = true;
-			this.listBoxCheckins.Location = new System.Drawing.Point(12, 242);
-			this.listBoxCheckins.Name = "listBoxCheckins";
-			this.listBoxCheckins.Size = new System.Drawing.Size(200, 199);
-			this.listBoxCheckins.TabIndex = 53;
-			// 
 			// listBoxEvents
 			// 
 			this.listBoxEvents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.listBoxEvents.DisplayMember = "name";
+			this.listBoxEvents.DataSource = this.eventsBindingSource;
+			this.listBoxEvents.DisplayMember = "Name";
 			this.listBoxEvents.Enabled = false;
 			this.listBoxEvents.FormattingEnabled = true;
-			this.listBoxEvents.Location = new System.Drawing.Point(220, 242);
+			this.listBoxEvents.Location = new System.Drawing.Point(12, 242);
 			this.listBoxEvents.Name = "listBoxEvents";
-			this.listBoxEvents.Size = new System.Drawing.Size(568, 199);
+			this.listBoxEvents.Size = new System.Drawing.Size(776, 199);
 			this.listBoxEvents.TabIndex = 54;
-			this.listBoxEvents.SelectedIndexChanged += new System.EventHandler(this.listBoxEvents_SelectedIndexChanged);
+			this.listBoxEvents.ValueMember = "AttendingUsers";
+			// 
+			// eventsBindingSource
+			// 
+			this.eventsBindingSource.DataMember = "Events";
+			this.eventsBindingSource.DataSource = this.userBindingSource;
 			// 
 			// buttonFetchEvents
 			// 
 			this.buttonFetchEvents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonFetchEvents.Enabled = false;
-			this.buttonFetchEvents.Location = new System.Drawing.Point(220, 213);
+			this.buttonFetchEvents.Location = new System.Drawing.Point(12, 213);
 			this.buttonFetchEvents.Name = "buttonFetchEvents";
-			this.buttonFetchEvents.Size = new System.Drawing.Size(732, 23);
+			this.buttonFetchEvents.Size = new System.Drawing.Size(940, 23);
 			this.buttonFetchEvents.TabIndex = 56;
-			this.buttonFetchEvents.Text = "Fetch News Events";
+			this.buttonFetchEvents.Text = "Fetch Events";
 			this.buttonFetchEvents.UseVisualStyleBackColor = true;
 			this.buttonFetchEvents.Click += new System.EventHandler(this.buttonFetchEvents_Click);
-			// 
-			// buttonFetchCheckIns
-			// 
-			this.buttonFetchCheckIns.Enabled = false;
-			this.buttonFetchCheckIns.Location = new System.Drawing.Point(12, 213);
-			this.buttonFetchCheckIns.Name = "buttonFetchCheckIns";
-			this.buttonFetchCheckIns.Size = new System.Drawing.Size(200, 23);
-			this.buttonFetchCheckIns.TabIndex = 57;
-			this.buttonFetchCheckIns.Text = "Fetch Check Ins";
-			this.buttonFetchCheckIns.UseVisualStyleBackColor = true;
-			this.buttonFetchCheckIns.Click += new System.EventHandler(this.buttonFetchCheckIns_Click);
 			// 
 			// buttonFilterSettings
 			// 
@@ -228,6 +231,11 @@
 			this.buttonCannedPost.UseVisualStyleBackColor = true;
 			this.buttonCannedPost.Click += new System.EventHandler(this.buttonCannedPost_Click);
 			// 
+			// checkinsBindingSource
+			// 
+			this.checkinsBindingSource.DataMember = "Checkins";
+			this.checkinsBindingSource.DataSource = this.userBindingSource;
+			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -236,10 +244,8 @@
 			this.Controls.Add(this.buttonCannedPost);
 			this.Controls.Add(this.checkBoxShowFiltered);
 			this.Controls.Add(this.buttonFilterSettings);
-			this.Controls.Add(this.buttonFetchCheckIns);
 			this.Controls.Add(this.buttonFetchEvents);
 			this.Controls.Add(this.pictureBoxEvent);
-			this.Controls.Add(this.listBoxCheckins);
 			this.Controls.Add(this.listBoxEvents);
 			this.Controls.Add(this.buttonFetchNewsFeed);
 			this.Controls.Add(this.listBoxNewsFeed);
@@ -252,7 +258,11 @@
 			this.Name = "FormMain";
 			this.Text = "FaceBook App";
 			((System.ComponentModel.ISupportInitialize)(this.pictureSmallProfile)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.newsFeedBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxEvent)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.checkinsBindingSource)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -268,13 +278,15 @@
 		private System.Windows.Forms.ListBox listBoxNewsFeed;
 		private System.Windows.Forms.Button buttonFetchNewsFeed;
 		private System.Windows.Forms.PictureBox pictureBoxEvent;
-		private System.Windows.Forms.ListBox listBoxCheckins;
 		private System.Windows.Forms.ListBox listBoxEvents;
 		private System.Windows.Forms.Button buttonFetchEvents;
-		private System.Windows.Forms.Button buttonFetchCheckIns;
         private System.Windows.Forms.Button buttonFilterSettings;
         private System.Windows.Forms.CheckBox checkBoxShowFiltered;
 		private System.Windows.Forms.Button buttonCannedPost;
+		private System.Windows.Forms.BindingSource userBindingSource;
+		private System.Windows.Forms.BindingSource newsFeedBindingSource;
+		private System.Windows.Forms.BindingSource eventsBindingSource;
+		private System.Windows.Forms.BindingSource checkinsBindingSource;
 	}
 }
 

@@ -9,5 +9,7 @@ namespace Facebooky
 		bool IsMatch(Post i_Post);
 
 		bool Enabled { get; set; }
+		
+		string Name { get; }
 	}
 }

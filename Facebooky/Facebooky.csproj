@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="IPostFilter.cs" />
     <Compile Include="ITextNode.cs" />
+    <Compile Include="ListBoxExtention.cs" />
     <Compile Include="Paths.cs" />
     <Compile Include="PostFilterGroup.cs" />
     <Compile Include="PostInfo.cs" />
@@ -137,8 +138,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.User.datasource" />
     <None Include="Properties\DataSources\PostFilterGroup.datasource" />
-    <None Include="Properties\DataSources\ReggexPostFilter.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
