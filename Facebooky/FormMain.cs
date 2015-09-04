@@ -113,7 +113,7 @@
 			if (this.m_LoggedInUser != null)
 			{
                 this.enableControls();
-                Thread thread = new Thread(BindUserToDataSource());
+                Thread thread = new Thread(BindUserToDataSource);
                 thread.Start();
 //				userBindingSource.DataSource = m_LoggedInUser;
 				
@@ -121,9 +121,10 @@
 			}
 		}
 
-        private ThreadStart BindUserToDataSource()
+        private void BindUserToDataSource()
         {
-            return () => { userBindingSource.DataSource = m_LoggedInUser; this.Invoke(new Action(this.resetBinding)); };
+            userBindingSource.DataSource = m_LoggedInUser;
+            this.Invoke(new Action(this.resetBinding)); 
         }
 
 		private void enableControls()
