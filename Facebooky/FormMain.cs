@@ -6,9 +6,7 @@
 	using System.Linq;
 	using System.Windows.Forms;
 	using System.Xml.Serialization;
-
-	using Facebooky;
-
+	using System.Threading;
 	using FacebookWrapper;
 	using FacebookWrapper.ObjectModel;
 
@@ -59,7 +57,7 @@
 
 		public FormMain()
 		{
-            this.m_PostFilterGroups = new List<PostFilterGroup>();
+			this.m_PostFilterGroups = new List<PostFilterGroup>();
 			this.InitializeComponent();
 		}
 
@@ -112,10 +110,16 @@
 			this.logIn();
 			if (this.m_LoggedInUser != null)
 			{
-				userBindingSource.DataSource = m_LoggedInUser;
 				this.enableControls();
+				new Thread(bindUserToDataSource).Start();
 				this.loadPostFilters();
 			}
+		}
+
+		private void bindUserToDataSource()
+		{
+			userBindingSource.DataSource = m_LoggedInUser;
+			this.Invoke(new Action(this.resetBinding));
 		}
 
 		private void enableControls()
@@ -143,26 +147,23 @@
 			userBindingSource.ResetBindings(!v_MetadataChanged);
 		}
 
-        private void fetchNewsFeed()
-        {
-			m_LoggedInUser.ReFetch("feed");
-			resetBinding();
-			return;
-
-            if (this.m_LoggedInUser != null)
-            {
-                if (!this.checkBoxShowFiltered.Checked)
-                {
-                    this.listBoxNewsFeed.DataSource = this.m_LoggedInUser.NewsFeed;
-                }
-                else
-                {
+		private void fetchNewsFeed()
+		{
+			if (this.m_LoggedInUser != null)
+			{
+				if (!this.checkBoxShowFiltered.Checked)
+				{
+					m_LoggedInUser.ReFetch("feed");
+					resetBinding();
+				}
+				else
+				{
 					List<Post> posts = this.m_LoggedInUser.NewsFeed.Where(i_Post => this.getPostPriority(i_Post) != ePostPriority.Hidden).ToList();
-					posts.Sort((i_Post, i_OtherPost) => this.getPostPriority(i_OtherPost).CompareTo(this.getPostPriority(i_Post)));                  
-	                this.listBoxNewsFeed.DataSource = posts;
-                }
-            }
-        }
+					posts.Sort((i_Post, i_OtherPost) => this.getPostPriority(i_OtherPost).CompareTo(this.getPostPriority(i_Post)));
+					this.listBoxNewsFeed.DataSource = posts;
+				}
+			}
+		}
 
 		private ePostPriority getPostPriority(Post i_Post)
 		{
@@ -182,7 +183,7 @@
 
 			return postPriority;
 		}
-		
+
 		private void buttonFetchEvents_Click(object i_Sender, EventArgs i_Args)
 		{
 			this.fetchEvents();
@@ -203,14 +204,14 @@
 			}
 		}
 
-        private void buttonFilterSettings_Click(object i_Sender, EventArgs i_Args)
-        {
-            FormFilterSettings filterSettingsDialog = new FormFilterSettings();
-            filterSettingsDialog.PostFilterGroup = this.m_PostFilterGroups;
-            filterSettingsDialog.ShowDialog();
-	        this.savePostFilters();
-        }
-		
+		private void buttonFilterSettings_Click(object i_Sender, EventArgs i_Args)
+		{
+			FormFilterSettings filterSettingsDialog = new FormFilterSettings();
+			filterSettingsDialog.PostFilterGroup = this.m_PostFilterGroups;
+			filterSettingsDialog.ShowDialog();
+			this.savePostFilters();
+		}
+
 		private void savePostFilters()
 		{
 			XmlSerializer serializer = new XmlSerializer(typeof(List<PostFilterGroup>));
@@ -220,26 +221,26 @@
 			}
 		}
 
-        private void loadPostFilters()
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<PostFilterGroup>));
+		private void loadPostFilters()
+		{
+			XmlSerializer serializer = new XmlSerializer(typeof(List<PostFilterGroup>));
 			if (File.Exists(this.m_UserPaths.PostFiltersPath))
-	        {
+			{
 				using (TextReader reader = new StreamReader(this.m_UserPaths.PostFiltersPath))
-		        {
-			        this.m_PostFilterGroups = (List<PostFilterGroup>)serializer.Deserialize(reader);
-		        }
-	        }
-	        else
-	        {
-		        this.m_PostFilterGroups = new List<PostFilterGroup>();
-	        }
-        }
+				{
+					this.m_PostFilterGroups = (List<PostFilterGroup>)serializer.Deserialize(reader);
+				}
+			}
+			else
+			{
+				this.m_PostFilterGroups = new List<PostFilterGroup>();
+			}
+		}
 
-        private void checkBoxShowFiltered_CheckedChanged(object i_Sender, EventArgs i_Args)
-        {
-            this.fetchNewsFeed();
-        }
+		private void checkBoxShowFiltered_CheckedChanged(object i_Sender, EventArgs i_Args)
+		{
+			this.fetchNewsFeed();
+		}
 
 		private void buttonCannedPost_Click(object i_Sender, EventArgs i_Args)
 		{
