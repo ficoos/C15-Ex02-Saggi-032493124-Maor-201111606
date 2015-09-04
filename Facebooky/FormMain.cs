@@ -134,13 +134,19 @@
 		private void fetchEvents()
 		{
 			m_LoggedInUser.ReFetch("events");
-			userBindingSource.ResetBindings(metadataChanged: false);
+			resetBinding();
+		}
+
+		private void resetBinding()
+		{
+			const bool v_MetadataChanged = true;
+			userBindingSource.ResetBindings(!v_MetadataChanged);
 		}
 
         private void fetchNewsFeed()
         {
 			m_LoggedInUser.ReFetch("feed");
-			userBindingSource.ResetBindings(metadataChanged: false);
+			resetBinding();
 			return;
 
             if (this.m_LoggedInUser != null)
