@@ -6,7 +6,6 @@
 	using System.Linq;
 	using System.Windows.Forms;
 	using System.Xml.Serialization;
-
 	using Facebooky;
     using System.Threading;
 	using FacebookWrapper;
@@ -113,15 +112,12 @@
 			if (this.m_LoggedInUser != null)
 			{
                 this.enableControls();
-                Thread thread = new Thread(BindUserToDataSource);
-                thread.Start();
-//				userBindingSource.DataSource = m_LoggedInUser;
-				
+                new Thread(bindUserToDataSource).Start();			
 				this.loadPostFilters();
 			}
 		}
 
-        private void BindUserToDataSource()
+        private void bindUserToDataSource()
         {
             userBindingSource.DataSource = m_LoggedInUser;
             this.Invoke(new Action(this.resetBinding)); 
@@ -154,10 +150,6 @@
 
         private void fetchNewsFeed()
         {
-//			m_LoggedInUser.ReFetch("feed");
-//			resetBinding();
-//			return;
-
             if (this.m_LoggedInUser != null)
             {
                 if (!this.checkBoxShowFiltered.Checked)
