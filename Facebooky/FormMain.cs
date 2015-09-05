@@ -3,7 +3,6 @@
 	using System;
 	using System.Collections.Generic;
 	using System.IO;
-	using System.Linq;
 	using System.Windows.Forms;
 	using System.Xml.Serialization;
 	using System.Threading;
@@ -53,14 +52,13 @@
 
 		private User m_LoggedInUser;
 
-//		private ProxyDataSource m_NewsFeed;
+		//		private ProxyDataSource m_NewsFeed;
 
 		private UserPaths m_UserPaths;
 
 		public FormMain()
 		{
 			this.m_PostFilterGroups = new List<PostFilterGroup>();
-//			this.m_NewsFeed = new ProxyDataSource();
 			this.InitializeComponent();
 		}
 
@@ -125,7 +123,7 @@
 			proxyDataSourceBindingSource.DataSource = new ProxyDataSource(m_LoggedInUser, m_PostFilterGroups);
 			this.Invoke(new Action(this.resetBinding));
 		}
-
+		
 		private void enableControls()
 		{
 			this.textBoxStatus.Enabled = true;
@@ -156,39 +154,10 @@
 		{
 			if (this.m_LoggedInUser != null)
 			{
-				if (!this.checkBoxShowFiltered.Checked)
-				{
-					m_LoggedInUser.ReFetch("feed");
-					resetBinding();
-				}
-				else
-				{
-					List<Post> posts = this.m_LoggedInUser.NewsFeed.Where(i_Post => this.getPostPriority(i_Post) != ePostPriority.Hidden).ToList();
-					posts.Sort((i_Post, i_OtherPost) => this.getPostPriority(i_OtherPost).CompareTo(this.getPostPriority(i_Post)));
-					this.listBoxNewsFeed.DataSource = posts;
-				}
+				m_LoggedInUser.ReFetch("feed");
+				resetBinding();
 			}
 		}
-
-		private ePostPriority getPostPriority(Post i_Post)
-		{
-			ePostPriority postPriority = ePostPriority.None;
-			foreach (PostFilterGroup filterGroup in this.m_PostFilterGroups)
-			{
-				if (filterGroup.IsMatch(i_Post))
-				{
-					postPriority = (ePostPriority)Math.Min((int)filterGroup.PostPriority, (int)postPriority);
-				}
-
-				if (postPriority == ePostPriority.Hidden)
-				{
-					break;
-				}
-			}
-
-			return postPriority;
-		}
-
 		private void buttonFetchEvents_Click(object i_Sender, EventArgs i_Args)
 		{
 			this.fetchEvents();
@@ -212,9 +181,15 @@
 		private void buttonFilterSettings_Click(object i_Sender, EventArgs i_Args)
 		{
 			FormFilterSettings filterSettingsDialog = new FormFilterSettings();
-            filterSettingsDialog.PostFilterGroups = this.m_PostFilterGroups;
+			filterSettingsDialog.PostFilterGroups = this.m_PostFilterGroups;
 			filterSettingsDialog.ShowDialog();
 			this.savePostFilters();
+			ProxyDataSource proxy = (proxyDataSourceBindingSource.DataSource as ProxyDataSource);
+			if (proxy != null)
+			{
+				proxy.UpdatePostFilterGroups(m_PostFilterGroups);
+				this.resetBinding();
+			}
 		}
 
 		private void savePostFilters()
@@ -244,8 +219,6 @@
 
 		private void checkBoxShowFiltered_CheckedChanged(object i_Sender, EventArgs i_Args)
 		{
-			//this.fetchNewsFeed();
-
 			ProxyDataSource proxy = (proxyDataSourceBindingSource.DataSource as ProxyDataSource);
 			if (proxy != null)
 			{
