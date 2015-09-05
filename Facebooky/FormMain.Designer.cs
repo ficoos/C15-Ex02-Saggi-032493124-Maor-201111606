@@ -135,7 +135,7 @@
 			// 
 			// proxyDataSourceBindingSource
 			// 
-			this.proxyDataSourceBindingSource.DataSource = typeof(object);
+			this.proxyDataSourceBindingSource.DataSource = typeof(Facebooky.ProxyDataSource);
 			// 
 			// newsFeedBindingSource
 			// 

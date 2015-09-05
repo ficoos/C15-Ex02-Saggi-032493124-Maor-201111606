@@ -10,7 +10,7 @@ namespace Facebooky
 {
 	class ProxyDataSource : Component, IBindingListView
 	{
-		private List<Post> m_FilteredPosts;
+		private List<Post> m_FilteringEnabled;
 		private User m_User;
 		public bool ProxyEnabled { get; set; }
 		private ICollection<PostFilterGroup> m_PostFilterGroups;
@@ -22,22 +22,23 @@ namespace Facebooky
 			this.r_OriginalBindingSource = new BindingSource(i_User, "NewsFeed");
 			m_User = i_User;
 			m_PostFilterGroups = i_FilterGroup;
-			m_FilteredPosts = new List<Post>();
+			this.m_FilteringEnabled = new List<Post>();
 			this.filterPosts();
 			this.r_OriginalBindingSource.ListChanged += this.DoWhenListChange;
-			//To Saggi- I get an error about syncroot. Do you think I should forward it to the syncroot of the original databinding? or to creat a new one? No one references it.
 		}
+
 		public void DoWhenListChange(object i_Sender, EventArgs i_Args)
 		{
 			this.filterPosts();
 		}
+
 		private void filterPosts()
 		{
-			this.m_FilteredPosts = this.m_User.NewsFeed.Where(i_Post => this.getPostPriority(i_Post) != ePostPriority.Hidden).ToList();
-			this.m_FilteredPosts.Sort(
-			(i_Post, i_OtherPost) => this.getPostPriority(i_OtherPost).CompareTo(this.getPostPriority(i_Post)));
+			this.m_FilteringEnabled = this.m_User.NewsFeed.Where(i_Post => this.calculatePostPriority(i_Post) != ePostPriority.Hidden).ToList();
+			this.m_FilteringEnabled.Sort(
+			(i_Post, i_OtherPost) => this.calculatePostPriority(i_OtherPost).CompareTo(this.calculatePostPriority(i_Post)));
 		}
-		private ePostPriority getPostPriority(Post i_Post)
+		private ePostPriority calculatePostPriority(Post i_Post)
 		{
 			ePostPriority postPriority = ePostPriority.None;
 			foreach (PostFilterGroup filterGroup in m_PostFilterGroups)
@@ -64,9 +65,10 @@ namespace Facebooky
 				this.filterPosts();
 			}
 		}
+
 		public IEnumerator GetEnumerator()
 		{
-			return ProxyEnabled ? m_FilteredPosts.GetEnumerator() : this.r_OriginalBindingSource.GetEnumerator();
+			return ProxyEnabled ? this.m_FilteringEnabled.GetEnumerator() : this.r_OriginalBindingSource.GetEnumerator();
 		} //To Saggi- how can I make sure i wont return a null? Should I use an object that memamesh IEnumerator and assign the value to it first, and then return the object?
 
 		public int Count
@@ -79,13 +81,10 @@ namespace Facebooky
 				}
 				else
 				{
-					return this.r_OriginalBindingSource.Count;
+					return this.m_FilteringEnabled.Count;
 				}
 			}
-
 		}
-
-
 
 		public int Add(object i_Value)
 		{
@@ -96,7 +95,7 @@ namespace Facebooky
 			else
 			{
 				this.r_OriginalBindingSource.Add(i_Value as Post);
-				return m_FilteredPosts.IndexOf(i_Value as Post);
+				return this.m_FilteringEnabled.IndexOf(i_Value as Post);
 			}
 
 		}
