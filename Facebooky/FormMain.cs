@@ -53,11 +53,14 @@
 
 		private User m_LoggedInUser;
 
+//		private ProxyDataSource m_NewsFeed;
+
 		private UserPaths m_UserPaths;
 
 		public FormMain()
 		{
 			this.m_PostFilterGroups = new List<PostFilterGroup>();
+//			this.m_NewsFeed = new ProxyDataSource();
 			this.InitializeComponent();
 		}
 
@@ -119,6 +122,7 @@
 		private void bindUserToDataSource()
 		{
 			userBindingSource.DataSource = m_LoggedInUser;
+			proxyDataSourceBindingSource.DataSource = new ProxyDataSource(m_LoggedInUser, m_PostFilterGroups);
 			this.Invoke(new Action(this.resetBinding));
 		}
 
@@ -145,6 +149,7 @@
 		{
 			const bool v_MetadataChanged = true;
 			userBindingSource.ResetBindings(!v_MetadataChanged);
+			proxyDataSourceBindingSource.ResetBindings(!v_MetadataChanged);
 		}
 
 		private void fetchNewsFeed()
