@@ -7,6 +7,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace Facebooky
 {
+	[PostFilterFactory.Register("Regular Expression Filter")]
 	public class RegexPostFilter : IPostFilter
 	{
 		public Regex Regex { get; set; }
@@ -79,6 +80,8 @@ namespace Facebooky
 			{
 				Enabled = bool.Parse(rawEnabled);	
 			}
+
+			i_Reader.ReadStartElement();
 		}
 
 		public void WriteXml(XmlWriter i_Writer)

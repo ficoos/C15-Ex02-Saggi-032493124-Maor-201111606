@@ -10,6 +10,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace Facebooky
 {
+	[PostFilterFactory.Register("Filter Group")]
 	public class PostFilterGroup : IPostFilter
     {
         public string Name { get; set; }
@@ -43,7 +44,12 @@ namespace Facebooky
 	        return r_PostFilters.Any(i_PostFilter => i_PostFilter.IsMatch(i_Post));
         }
 
-	    public PostFilterGroup(string i_Name, ePostPriority i_PostPriority = ePostPriority.Hidden)
+		public PostFilterGroup(string i_Name)
+			: this(i_Name, ePostPriority.Hidden)
+		{
+		}
+
+		public PostFilterGroup(string i_Name, ePostPriority i_PostPriority)
         {
             Name = i_Name;
             PostPriority = i_PostPriority; 
@@ -83,7 +89,6 @@ namespace Facebooky
 			{
 				XmlSerializer serializer = getSerializer(i_Reader.Name);
 				r_PostFilters.Add(serializer.Deserialize(i_Reader) as IPostFilter);
-				i_Reader.ReadStartElement();
 			}
 
 			i_Reader.ReadEndElement();

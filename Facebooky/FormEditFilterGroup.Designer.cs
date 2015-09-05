@@ -40,6 +40,7 @@
 			this.textBoxAddFilter = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
+			this.comboBoxFilterKind = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.postFiltersBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.postFilterGroupBindingSource)).BeginInit();
 			this.SuspendLayout();
@@ -52,7 +53,7 @@
 			this.buttonClose.Margin = new System.Windows.Forms.Padding(2);
 			this.buttonClose.Name = "buttonClose";
 			this.buttonClose.Size = new System.Drawing.Size(469, 27);
-			this.buttonClose.TabIndex = 7;
+			this.buttonClose.TabIndex = 9;
 			this.buttonClose.Text = "Close";
 			this.buttonClose.UseVisualStyleBackColor = true;
 			this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
@@ -65,7 +66,7 @@
 			this.buttonRemoveSelectedFilter.Margin = new System.Windows.Forms.Padding(2);
 			this.buttonRemoveSelectedFilter.Name = "buttonRemoveSelectedFilter";
 			this.buttonRemoveSelectedFilter.Size = new System.Drawing.Size(469, 25);
-			this.buttonRemoveSelectedFilter.TabIndex = 6;
+			this.buttonRemoveSelectedFilter.TabIndex = 8;
 			this.buttonRemoveSelectedFilter.Text = "Remove Selected filter";
 			this.buttonRemoveSelectedFilter.UseVisualStyleBackColor = true;
 			this.buttonRemoveSelectedFilter.Click += new System.EventHandler(this.buttonRemoveSelectedFilter_Click);
@@ -77,7 +78,7 @@
 			this.buttonAddFilter.Margin = new System.Windows.Forms.Padding(2);
 			this.buttonAddFilter.Name = "buttonAddFilter";
 			this.buttonAddFilter.Size = new System.Drawing.Size(95, 23);
-			this.buttonAddFilter.TabIndex = 4;
+			this.buttonAddFilter.TabIndex = 5;
 			this.buttonAddFilter.Text = "Add new filter";
 			this.buttonAddFilter.UseVisualStyleBackColor = true;
 			this.buttonAddFilter.Click += new System.EventHandler(this.buttonAddFilter_Click);
@@ -93,8 +94,8 @@
 			this.checkedListBoxFilterFilters.Location = new System.Drawing.Point(11, 90);
 			this.checkedListBoxFilterFilters.Margin = new System.Windows.Forms.Padding(2);
 			this.checkedListBoxFilterFilters.Name = "checkedListBoxFilterFilters";
-			this.checkedListBoxFilterFilters.Size = new System.Drawing.Size(470, 199);
-			this.checkedListBoxFilterFilters.TabIndex = 5;
+			this.checkedListBoxFilterFilters.Size = new System.Drawing.Size(470, 214);
+			this.checkedListBoxFilterFilters.TabIndex = 6;
 			this.checkedListBoxFilterFilters.ValueMember = "Enabled";
 			this.checkedListBoxFilterFilters.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFilterFilters_ItemCheck);
 			// 
@@ -126,11 +127,11 @@
 			// 
 			this.textBoxAddFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBoxAddFilter.Location = new System.Drawing.Point(11, 63);
+			this.textBoxAddFilter.Location = new System.Drawing.Point(191, 63);
 			this.textBoxAddFilter.Margin = new System.Windows.Forms.Padding(2);
 			this.textBoxAddFilter.Name = "textBoxAddFilter";
-			this.textBoxAddFilter.Size = new System.Drawing.Size(371, 20);
-			this.textBoxAddFilter.TabIndex = 3;
+			this.textBoxAddFilter.Size = new System.Drawing.Size(191, 20);
+			this.textBoxAddFilter.TabIndex = 4;
 			// 
 			// label1
 			// 
@@ -144,18 +145,27 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postFilterGroupBindingSource, "PostPriority", true));
 			this.label2.Location = new System.Drawing.Point(12, 48);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(86, 13);
 			this.label2.TabIndex = 2;
 			this.label2.Text = "Filter Expression:";
 			// 
+			// comboBoxFilterKind
+			// 
+			this.comboBoxFilterKind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxFilterKind.FormattingEnabled = true;
+			this.comboBoxFilterKind.Location = new System.Drawing.Point(12, 63);
+			this.comboBoxFilterKind.Name = "comboBoxFilterKind";
+			this.comboBoxFilterKind.Size = new System.Drawing.Size(174, 21);
+			this.comboBoxFilterKind.TabIndex = 3;
+			// 
 			// FormEditFilterGroup
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(501, 381);
+			this.Controls.Add(this.comboBoxFilterKind);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.textBoxAddFilter);
@@ -189,5 +199,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.BindingSource postFiltersBindingSource;
+		private System.Windows.Forms.ComboBox comboBoxFilterKind;
     }
 }

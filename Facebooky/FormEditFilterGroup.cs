@@ -24,6 +24,13 @@ namespace Facebooky
 			this.comboBoxPriority.Items.Add(ePostPriority.Demoted);
 			this.comboBoxPriority.Items.Add(ePostPriority.Hidden);
 			this.comboBoxPriority.Items.Add(ePostPriority.Promoted);
+			foreach (string kind in PostFilterFactory.Kinds)
+			{
+				comboBoxFilterKind.Items.Add(kind);
+			}
+
+			comboBoxFilterKind.SelectedIndex = 2;
+
 			comboBoxPriority.Text = ((PostFilterGroup)postFilterGroupBindingSource.Current).PostPriority.ToString();
 		}
 
@@ -31,8 +38,21 @@ namespace Facebooky
 		{
 			if (textBoxAddFilter.Text.Length > 0)
 			{
-				RegexPostFilter newFilter = new RegexPostFilter(textBoxAddFilter.Text);
-				postFiltersBindingSource.Add(newFilter);
+				IPostFilter postFilter = PostFilterFactory.CreatePostFilter(comboBoxFilterKind.Text, textBoxAddFilter.Text);
+				if (postFilter is PostFilterGroup)
+				{
+					FormEditFilterGroup form = new FormEditFilterGroup();
+					form.FilterGroup = postFilter as PostFilterGroup;
+					form.ShowDialog();
+					if (form.DialogResult == DialogResult.OK)
+					{
+						postFiltersBindingSource.Add(postFilter);
+					}
+
+					textBoxAddFilter.Text = string.Empty;
+				}
+
+				postFiltersBindingSource.Add(postFilter);
 				textBoxAddFilter.Text = string.Empty;
 			}
 		}
