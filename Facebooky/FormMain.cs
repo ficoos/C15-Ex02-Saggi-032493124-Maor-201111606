@@ -244,7 +244,14 @@
 
 		private void checkBoxShowFiltered_CheckedChanged(object i_Sender, EventArgs i_Args)
 		{
-			this.fetchNewsFeed();
+			//this.fetchNewsFeed();
+
+			ProxyDataSource proxy = (proxyDataSourceBindingSource.DataSource as ProxyDataSource);
+			if (proxy != null)
+			{
+				proxy.ProxyEnabled = checkBoxShowFiltered.Checked;
+				this.resetBinding();
+			}
 		}
 
 		private void buttonCannedPost_Click(object i_Sender, EventArgs i_Args)

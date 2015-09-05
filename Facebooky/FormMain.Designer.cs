@@ -38,6 +38,7 @@
 			this.pictureSmallProfile = new System.Windows.Forms.PictureBox();
 			this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.listBoxNewsFeed = new System.Windows.Forms.ListBox();
+			this.proxyDataSourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.newsFeedBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.buttonFetchNewsFeed = new System.Windows.Forms.Button();
 			this.pictureBoxEvent = new System.Windows.Forms.PictureBox();
@@ -48,14 +49,13 @@
 			this.checkBoxShowFiltered = new System.Windows.Forms.CheckBox();
 			this.buttonCannedPost = new System.Windows.Forms.Button();
 			this.checkinsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.proxyDataSourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.pictureSmallProfile)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.proxyDataSourceBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.newsFeedBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxEvent)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.checkinsBindingSource)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.proxyDataSourceBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonLogIn
@@ -132,6 +132,10 @@
 			this.listBoxNewsFeed.Name = "listBoxNewsFeed";
 			this.listBoxNewsFeed.Size = new System.Drawing.Size(1098, 178);
 			this.listBoxNewsFeed.TabIndex = 51;
+			// 
+			// proxyDataSourceBindingSource
+			// 
+			this.proxyDataSourceBindingSource.DataSource = typeof(object);
 			// 
 			// newsFeedBindingSource
 			// 
@@ -246,10 +250,6 @@
 			this.checkinsBindingSource.DataMember = "Checkins";
 			this.checkinsBindingSource.DataSource = this.userBindingSource;
 			// 
-			// proxyDataSourceBindingSource
-			// 
-			this.proxyDataSourceBindingSource.DataSource = typeof(object);
-			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -274,11 +274,11 @@
 			this.Text = "FaceBook App";
 			((System.ComponentModel.ISupportInitialize)(this.pictureSmallProfile)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.proxyDataSourceBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.newsFeedBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxEvent)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.checkinsBindingSource)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.proxyDataSourceBindingSource)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

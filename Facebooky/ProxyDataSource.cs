@@ -12,20 +12,62 @@ namespace Facebooky
 {
 	class ProxyDataSource : Component, IBindingListView
 	{
-		private List<Post> m_FilteredPosts;
+		private List<Post> r_FilteredPosts;
+		private User m_User;
 		public bool ProxyEnabled { get; set; }
-		private BindingSource m_OriginalBindingSource;
 
+		private readonly ICollection<PostFilterGroup> r_PostFilterGroups;
+		
+
+		private BindingSource m_OriginalBindingSource;
 		public ProxyDataSource(User i_User, ICollection<PostFilterGroup> i_FilterGroup)
 		{
+			ProxyEnabled = true;
 			m_OriginalBindingSource = new BindingSource(i_User,"NewsFeed");
-			
+			m_User = i_User;
+			r_PostFilterGroups = i_FilterGroup;
+			r_FilteredPosts = new List<Post>();
+	//		r_FilteredPosts.Add(new Post());
+			this.filterPosts();
+			m_OriginalBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.DoWhenListChange); 
 
 		}
+		
 
+		public void DoWhenListChange(object i_Sender, EventArgs i_Args)
+		{
+			this.filterPosts();
+		}
+		private void filterPosts()
+		{
+			this.r_FilteredPosts = this.m_User.NewsFeed.Where(i_Post => this.getPostPriority(i_Post) != ePostPriority.Hidden).ToList();
+			this.r_FilteredPosts.Sort(
+			(i_Post, i_OtherPost) => this.getPostPriority(i_OtherPost).CompareTo(this.getPostPriority(i_Post)));
+			
+//			r_FilteredPosts.Add(new Post());
+		}
+
+		private ePostPriority getPostPriority(Post i_Post)
+		{
+			ePostPriority postPriority = ePostPriority.None;
+			foreach (PostFilterGroup filterGroup in r_PostFilterGroups)
+			{
+				if (filterGroup.IsMatch(i_Post))
+				{
+					postPriority = (ePostPriority)Math.Min((int)filterGroup.PostPriority, (int)postPriority);
+				}
+
+				if (postPriority == ePostPriority.Hidden)
+				{
+					break;
+				}
+			}
+
+			return postPriority;
+		}
 		public IEnumerator GetEnumerator()
 		{
-			return m_OriginalBindingSource.GetEnumerator();
+			return ProxyEnabled ? r_FilteredPosts.GetEnumerator():m_OriginalBindingSource.GetEnumerator();		
 		}
 
 		public void CopyTo(Array array, int index)
@@ -37,7 +79,14 @@ namespace Facebooky
 		{
 			get
 		{
-			return m_OriginalBindingSource.Count;
+			if (!ProxyEnabled)
+			{
+				return m_OriginalBindingSource.Count;
+			}
+			else
+			{
+				return m_OriginalBindingSource.Count;
+			}	
 		}
 			private set
 			{
@@ -49,12 +98,21 @@ namespace Facebooky
 
 		public bool IsSynchronized { get; private set; }
 
-		public int Add(object value)
+		public int Add(object i_Value)
 		{
-			return m_OriginalBindingSource.Add(value);
+			if (!ProxyEnabled)
+			{
+				return m_OriginalBindingSource.Add(i_Value);
+			}
+			else
+			{
+				m_OriginalBindingSource.Add(i_Value as Post);
+				return r_FilteredPosts.IndexOf(i_Value as Post);
+			}
+			
 		}
 
-		public bool Contains(object value)
+		public bool Contains(object i_Value)
 		{
 			throw new NotImplementedException();
 		}
@@ -64,35 +122,35 @@ namespace Facebooky
 			m_OriginalBindingSource.Clear();
 		}
 
-		public int IndexOf(object value)
+		public int IndexOf(object i_Value)
 		{
-			return m_OriginalBindingSource.IndexOf(value);
+			return m_OriginalBindingSource.IndexOf(i_Value);
 		}
 
-		public void Insert(int index, object value)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Remove(object value)
+		public void Insert(int i_Index, object i_Value)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void RemoveAt(int index)
+		public void Remove(object i_Value)
 		{
 			throw new NotImplementedException();
 		}
 
-		public object this[int index]
+		public void RemoveAt(int i_Index)
+		{
+			throw new NotImplementedException();
+		}
+
+		public object this[int i_Index]
 		{
 			get
 			{
-				return m_OriginalBindingSource[index];
+				return m_OriginalBindingSource[i_Index];
 			}
 			set
 			{
-				m_OriginalBindingSource[index] = value;
+				m_OriginalBindingSource[i_Index] = value;
 			}
 		}
 
@@ -105,12 +163,12 @@ namespace Facebooky
 			throw new NotImplementedException();
 		}
 
-		public void AddIndex(PropertyDescriptor property)
+		public void AddIndex(PropertyDescriptor i_Property)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void ApplySort(PropertyDescriptor property, ListSortDirection direction)
+		public void ApplySort(PropertyDescriptor i_Property, ListSortDirection i_Direction)
 		{
 			throw new NotImplementedException();
 		}
