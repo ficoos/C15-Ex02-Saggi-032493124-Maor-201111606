@@ -4,10 +4,8 @@ using System.Windows.Forms;
 
 namespace Facebooky
 {
-	using Facebooky;
-
 	public partial class FormPostCannedPost : Form
-    {
+	{
 		private readonly Dictionary<string, string> r_DynamicParts = new Dictionary<string, string>();
 
         public CannedPost CannedPost { get; set; }

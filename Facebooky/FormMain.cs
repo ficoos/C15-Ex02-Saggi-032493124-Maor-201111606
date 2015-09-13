@@ -91,9 +91,8 @@
 				this.m_LoggedInUser = result.LoggedInUser;
 				this.m_UserPaths = new UserPaths(this.m_LoggedInUser);
 				saveAccessToken(result.AccessToken);
+				this.initializeUserDirectory();
 			}
-
-			this.initializeUserDirectory();
 		}
 
 		private void initializeUserDirectory()
@@ -156,6 +155,7 @@
 				resetBinding();
 			}
 		}
+
 		private void buttonFetchEvents_Click(object i_Sender, EventArgs i_Args)
 		{
 			this.fetchEvents();
@@ -182,7 +182,7 @@
 			filterSettingsDialog.PostFilterGroups = this.m_PostFilterGroups;
 			filterSettingsDialog.ShowDialog();
 			this.savePostFilters();
-			ProxyDataSource proxy = (proxyDataSourceBindingSource.DataSource as ProxyDataSource);
+			ProxyDataSource proxy = proxyDataSourceBindingSource.DataSource as ProxyDataSource;
 			if (proxy != null)
 			{
 				proxy.UpdatePostFilterGroups(m_PostFilterGroups);

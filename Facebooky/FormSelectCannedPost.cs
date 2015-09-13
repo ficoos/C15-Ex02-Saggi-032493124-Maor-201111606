@@ -7,8 +7,6 @@ using System.Xml.Serialization;
 
 namespace Facebooky
 {
-	using Facebooky;
-
 	public partial class FormSelectCannedPost : Form
     {      
         public CannedPost SelectedPost { get; private set; }

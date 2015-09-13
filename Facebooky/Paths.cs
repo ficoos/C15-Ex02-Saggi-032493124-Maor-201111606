@@ -1,10 +1,10 @@
-﻿namespace Facebooky
+﻿using System;
+using System.IO;
+
+using FacebookWrapper.ObjectModel;
+
+namespace Facebooky
 {
-	using System;
-	using System.IO;
-
-	using FacebookWrapper.ObjectModel;
-
 	public class UserPaths
 	{
 		public User User { get; private set; }

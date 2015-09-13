@@ -60,10 +60,9 @@
 			// 
 			// buttonLogIn
 			// 
-			this.buttonLogIn.Location = new System.Drawing.Point(18, 18);
-			this.buttonLogIn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.buttonLogIn.Location = new System.Drawing.Point(12, 12);
 			this.buttonLogIn.Name = "buttonLogIn";
-			this.buttonLogIn.Size = new System.Drawing.Size(112, 35);
+			this.buttonLogIn.Size = new System.Drawing.Size(75, 23);
 			this.buttonLogIn.TabIndex = 0;
 			this.buttonLogIn.Text = "Log In...";
 			this.buttonLogIn.UseVisualStyleBackColor = true;
@@ -73,10 +72,9 @@
 			// 
 			this.buttonSetStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonSetStatus.Enabled = false;
-			this.buttonSetStatus.Location = new System.Drawing.Point(770, 18);
-			this.buttonSetStatus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.buttonSetStatus.Location = new System.Drawing.Point(513, 12);
 			this.buttonSetStatus.Name = "buttonSetStatus";
-			this.buttonSetStatus.Size = new System.Drawing.Size(112, 35);
+			this.buttonSetStatus.Size = new System.Drawing.Size(75, 23);
 			this.buttonSetStatus.TabIndex = 49;
 			this.buttonSetStatus.Text = "Post";
 			this.buttonSetStatus.UseVisualStyleBackColor = true;
@@ -87,29 +85,26 @@
 			this.textBoxStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBoxStatus.Enabled = false;
-			this.textBoxStatus.Location = new System.Drawing.Point(244, 22);
-			this.textBoxStatus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.textBoxStatus.Location = new System.Drawing.Point(163, 14);
 			this.textBoxStatus.Name = "textBoxStatus";
-			this.textBoxStatus.Size = new System.Drawing.Size(514, 26);
+			this.textBoxStatus.Size = new System.Drawing.Size(344, 20);
 			this.textBoxStatus.TabIndex = 48;
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(140, 26);
-			this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label3.Location = new System.Drawing.Point(93, 17);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(96, 20);
+			this.label3.Size = new System.Drawing.Size(64, 13);
 			this.label3.TabIndex = 47;
 			this.label3.Text = "Post Status:";
 			// 
 			// pictureSmallProfile
 			// 
 			this.pictureSmallProfile.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.userBindingSource, "ImageNormal", true));
-			this.pictureSmallProfile.Location = new System.Drawing.Point(18, 63);
-			this.pictureSmallProfile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.pictureSmallProfile.Location = new System.Drawing.Point(12, 41);
 			this.pictureSmallProfile.Name = "pictureSmallProfile";
-			this.pictureSmallProfile.Size = new System.Drawing.Size(300, 255);
+			this.pictureSmallProfile.Size = new System.Drawing.Size(200, 166);
 			this.pictureSmallProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.pictureSmallProfile.TabIndex = 50;
 			this.pictureSmallProfile.TabStop = false;
@@ -123,19 +118,19 @@
 			this.listBoxNewsFeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.listBoxNewsFeed.DataSource = this.proxyDataSourceBindingSource;
+			this.listBoxNewsFeed.DisplayMember = "Name";
 			this.listBoxNewsFeed.Enabled = false;
 			this.listBoxNewsFeed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.listBoxNewsFeed.FormattingEnabled = true;
-			this.listBoxNewsFeed.ItemHeight = 29;
-			this.listBoxNewsFeed.Location = new System.Drawing.Point(328, 108);
-			this.listBoxNewsFeed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.listBoxNewsFeed.ItemHeight = 19;
+			this.listBoxNewsFeed.Location = new System.Drawing.Point(219, 70);
 			this.listBoxNewsFeed.Name = "listBoxNewsFeed";
-			this.listBoxNewsFeed.Size = new System.Drawing.Size(762, 178);
+			this.listBoxNewsFeed.Size = new System.Drawing.Size(509, 99);
 			this.listBoxNewsFeed.TabIndex = 51;
 			// 
 			// proxyDataSourceBindingSource
 			// 
-			this.proxyDataSourceBindingSource.DataSource = typeof(Facebooky.ProxyDataSource);
+			this.proxyDataSourceBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Post);
 			// 
 			// newsFeedBindingSource
 			// 
@@ -147,10 +142,9 @@
 			this.buttonFetchNewsFeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonFetchNewsFeed.Enabled = false;
-			this.buttonFetchNewsFeed.Location = new System.Drawing.Point(328, 63);
-			this.buttonFetchNewsFeed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.buttonFetchNewsFeed.Location = new System.Drawing.Point(219, 41);
 			this.buttonFetchNewsFeed.Name = "buttonFetchNewsFeed";
-			this.buttonFetchNewsFeed.Size = new System.Drawing.Size(483, 35);
+			this.buttonFetchNewsFeed.Size = new System.Drawing.Size(322, 23);
 			this.buttonFetchNewsFeed.TabIndex = 52;
 			this.buttonFetchNewsFeed.Text = "Fetch News Feed";
 			this.buttonFetchNewsFeed.UseVisualStyleBackColor = true;
@@ -161,10 +155,9 @@
 			this.pictureBoxEvent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.pictureBoxEvent.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.eventsBindingSource, "ImageNormal", true));
-			this.pictureBoxEvent.Location = new System.Drawing.Point(855, 372);
-			this.pictureBoxEvent.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.pictureBoxEvent.Location = new System.Drawing.Point(570, 242);
 			this.pictureBoxEvent.Name = "pictureBoxEvent";
-			this.pictureBoxEvent.Size = new System.Drawing.Size(240, 322);
+			this.pictureBoxEvent.Size = new System.Drawing.Size(160, 209);
 			this.pictureBoxEvent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.pictureBoxEvent.TabIndex = 55;
 			this.pictureBoxEvent.TabStop = false;
@@ -183,11 +176,9 @@
 			this.listBoxEvents.DisplayMember = "Name";
 			this.listBoxEvents.Enabled = false;
 			this.listBoxEvents.FormattingEnabled = true;
-			this.listBoxEvents.ItemHeight = 20;
-			this.listBoxEvents.Location = new System.Drawing.Point(18, 372);
-			this.listBoxEvents.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.listBoxEvents.Location = new System.Drawing.Point(12, 242);
 			this.listBoxEvents.Name = "listBoxEvents";
-			this.listBoxEvents.Size = new System.Drawing.Size(826, 304);
+			this.listBoxEvents.Size = new System.Drawing.Size(552, 199);
 			this.listBoxEvents.TabIndex = 54;
 			this.listBoxEvents.ValueMember = "AttendingUsers";
 			// 
@@ -196,10 +187,9 @@
 			this.buttonFetchEvents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonFetchEvents.Enabled = false;
-			this.buttonFetchEvents.Location = new System.Drawing.Point(18, 328);
-			this.buttonFetchEvents.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.buttonFetchEvents.Location = new System.Drawing.Point(12, 213);
 			this.buttonFetchEvents.Name = "buttonFetchEvents";
-			this.buttonFetchEvents.Size = new System.Drawing.Size(1074, 35);
+			this.buttonFetchEvents.Size = new System.Drawing.Size(716, 23);
 			this.buttonFetchEvents.TabIndex = 56;
 			this.buttonFetchEvents.Text = "Fetch Events";
 			this.buttonFetchEvents.UseVisualStyleBackColor = true;
@@ -209,9 +199,10 @@
 			// 
 			this.buttonFilterSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonFilterSettings.Enabled = false;
-			this.buttonFilterSettings.Location = new System.Drawing.Point(957, 63);
+			this.buttonFilterSettings.Location = new System.Drawing.Point(638, 41);
+			this.buttonFilterSettings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.buttonFilterSettings.Name = "buttonFilterSettings";
-			this.buttonFilterSettings.Size = new System.Drawing.Size(132, 37);
+			this.buttonFilterSettings.Size = new System.Drawing.Size(88, 24);
 			this.buttonFilterSettings.TabIndex = 58;
 			this.buttonFilterSettings.Text = "Filter Settings...";
 			this.buttonFilterSettings.UseVisualStyleBackColor = true;
@@ -224,9 +215,10 @@
 			this.checkBoxShowFiltered.Checked = true;
 			this.checkBoxShowFiltered.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.checkBoxShowFiltered.Enabled = false;
-			this.checkBoxShowFiltered.Location = new System.Drawing.Point(822, 69);
+			this.checkBoxShowFiltered.Location = new System.Drawing.Point(546, 45);
+			this.checkBoxShowFiltered.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.checkBoxShowFiltered.Name = "checkBoxShowFiltered";
-			this.checkBoxShowFiltered.Size = new System.Drawing.Size(132, 24);
+			this.checkBoxShowFiltered.Size = new System.Drawing.Size(90, 17);
 			this.checkBoxShowFiltered.TabIndex = 59;
 			this.checkBoxShowFiltered.Text = "Show Filtered";
 			this.checkBoxShowFiltered.UseVisualStyleBackColor = true;
@@ -236,10 +228,9 @@
 			// 
 			this.buttonCannedPost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonCannedPost.Enabled = false;
-			this.buttonCannedPost.Location = new System.Drawing.Point(891, 18);
-			this.buttonCannedPost.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.buttonCannedPost.Location = new System.Drawing.Point(594, 12);
 			this.buttonCannedPost.Name = "buttonCannedPost";
-			this.buttonCannedPost.Size = new System.Drawing.Size(198, 35);
+			this.buttonCannedPost.Size = new System.Drawing.Size(132, 23);
 			this.buttonCannedPost.TabIndex = 60;
 			this.buttonCannedPost.Text = "Canned Post...";
 			this.buttonCannedPost.UseVisualStyleBackColor = true;
@@ -252,9 +243,9 @@
 			// 
 			// FormMain
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1108, 702);
+			this.ClientSize = new System.Drawing.Size(739, 456);
 			this.Controls.Add(this.buttonCannedPost);
 			this.Controls.Add(this.checkBoxShowFiltered);
 			this.Controls.Add(this.buttonFilterSettings);
@@ -268,8 +259,7 @@
 			this.Controls.Add(this.textBoxStatus);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.buttonLogIn);
-			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.MinimumSize = new System.Drawing.Size(829, 601);
+			this.MinimumSize = new System.Drawing.Size(558, 404);
 			this.Name = "FormMain";
 			this.Text = "FaceBook App";
 			((System.ComponentModel.ISupportInitialize)(this.pictureSmallProfile)).EndInit();
