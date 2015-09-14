@@ -1,4 +1,8 @@
-﻿using FacebookWrapper.ObjectModel;
+﻿using System;
+using System.Net.NetworkInformation;
+using System.Windows.Forms;
+
+using FacebookWrapper.ObjectModel;
 
 namespace Facebooky
 {
@@ -16,6 +20,9 @@ namespace Facebooky
 			if (Enabled && !networkAvalable)
 			{
 				System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged += (i_Sender, i_Args) => { postCommand.Execute(); };
+				MessageBox.Show(@"Network is unavailable. The post will be posted when network is returns.");
+				System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged +=
+					postCommand.DoWhenNetworkChange;
 			}
 			else
 			{
@@ -26,5 +33,7 @@ namespace Facebooky
 				NextLink.HandlePost(i_Post);
 			}
 		}
+
+
 	}
 }

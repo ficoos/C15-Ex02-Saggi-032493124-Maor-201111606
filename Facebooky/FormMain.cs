@@ -60,13 +60,11 @@ namespace Facebooky
 
 		private IPostChainLink m_ChainOfResponsibility;
 
-		private void initialShortcutsFeature()
+		private void initialChainLinksFeatures()
 		{
 			CheckNetworkLink checkNetworkLink = new CheckNetworkLink();
 			checkNetworkLink.Enabled = checkBox_PostOnNetworkReturn.Checked;
 			checkNetworkLink.LoggedInUser = m_LoggedInUser;
-			this.r_ShortcutsToReplace.Add("a", "testA");
-			this.r_ShortcutsToReplace.Add("b", "testB");
 			ApplyShortcutsLink shortcutsLink = new ApplyShortcutsLink(r_ShortcutsToReplace);
 			shortcutsLink.Enabled = checkBoxEnableShortcuts.Checked;
 			shortcutsLink.NextLink = checkNetworkLink;
@@ -114,6 +112,7 @@ namespace Facebooky
 				this.m_UserPaths = new UserPaths(this.m_LoggedInUser);
 				saveAccessToken(result.AccessToken);
 				this.initializeUserDirectory();
+				this.buttonLogIn.Enabled = false;
 			}
 		}
 
@@ -133,7 +132,8 @@ namespace Facebooky
 				this.enableControls();
 				new Thread(bindUserToDataSource).Start();
 				this.loadPostFilters();
-				initialShortcutsFeature();
+				this.loadShortcuts();
+				this.initialChainLinksFeatures();
 			}
 		}
 
@@ -217,6 +217,39 @@ namespace Facebooky
 			}
 		}
 
+		private void saveUserShortcuts()
+		{
+			List<StringPair> exportList = new List<StringPair>();
+			foreach (string key in r_ShortcutsToReplace.Keys)
+			{
+				exportList.Add(new StringPair(key, r_ShortcutsToReplace[key]));
+			}
+			XmlSerializer serializer = new XmlSerializer(typeof(List<StringPair>));
+			using (TextWriter writer = new StreamWriter(this.m_UserPaths.ShortcutsPath))
+			{
+				serializer.Serialize(writer, exportList);
+			}
+		}
+		private void loadShortcuts()
+		{
+			
+			XmlSerializer serializer = new XmlSerializer(typeof(List<StringPair>));
+			if (File.Exists(this.m_UserPaths.ShortcutsPath))
+			{
+				using (TextReader reader = new StreamReader(this.m_UserPaths.ShortcutsPath))
+				{
+					List<StringPair> importList = (List<StringPair>)serializer.Deserialize(reader);
+					if (importList != null)
+					{
+						foreach (StringPair pair in importList)
+						{
+							this.r_ShortcutsToReplace.Add(pair.Key, pair.Value);
+						}
+					}
+				}
+			}
+		}
+
 		private void savePostFilters()
 		{
 			XmlSerializer serializer = new XmlSerializer(typeof(List<PostFilterGroup>));
@@ -278,6 +311,7 @@ namespace Facebooky
 		{
 			FormShortcutsSettings form = new FormShortcutsSettings(r_ShortcutsToReplace);
 			form.ShowDialog();
+			saveUserShortcuts();
 		}
 	}
 }

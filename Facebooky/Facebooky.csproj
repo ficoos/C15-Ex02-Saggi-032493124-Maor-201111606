@@ -119,6 +119,7 @@
     <Compile Include="PostFilterGroup.cs" />
     <Compile Include="PostInfo.cs" />
     <Compile Include="StaticTextNode.cs" />
+    <Compile Include="StringPair.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

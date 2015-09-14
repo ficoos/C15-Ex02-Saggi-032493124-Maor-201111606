@@ -32,7 +32,13 @@ namespace Facebooky
 				return Path.Combine(UserSettingsPath, "filters.xml");
 			}
 		}
-
+		public string ShortcutsPath
+		{
+			get
+			{
+				return Path.Combine(UserSettingsPath, "Shortcuts.xml");
+			}
+		}
 		public string CannedPostsDirectory
 		{
 			get

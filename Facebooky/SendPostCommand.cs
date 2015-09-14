@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 
 namespace Facebooky
@@ -13,6 +14,13 @@ namespace Facebooky
 		{
 			Status status = LoggedInUser.PostStatus(Post.StatusText);
 			MessageBox.Show(@"Status Posted! ID: " + status.Id);
+		}
+
+		public void DoWhenNetworkChange(object i_Sender, EventArgs i_Args)
+		{
+			if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+			this.Execute();
+			System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged -= DoWhenNetworkChange;
 		}
 	}
 }
