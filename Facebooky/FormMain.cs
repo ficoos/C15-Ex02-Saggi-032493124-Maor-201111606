@@ -72,7 +72,7 @@ namespace Facebooky
 			shortcutsLink.NextLink = checkNetworkLink;
 			m_ChainOfResponsibility = shortcutsLink;
 			this.checkBoxEnableShortcuts.CheckStateChanged += delegate(object i_Sender, EventArgs i_Args) { shortcutsLink.Enabled = ((CheckBox)i_Sender).Checked; };
-			this.checkBox_PostOnNetworkReturn.CheckStateChanged += delegate(object i_Sender, EventArgs i_Args) { checkNetworkLink.Enabled = ((CheckBox)i_Sender).Checked; }; 
+			this.checkBox_PostOnNetworkReturn.CheckStateChanged += delegate(object i_Sender, EventArgs i_Args) { checkNetworkLink.Enabled = ((CheckBox)i_Sender).Checked; };
 		}
 
 		public FormMain()
@@ -143,7 +143,7 @@ namespace Facebooky
 			proxyDataSourceBindingSource.DataSource = new ProxyDataSource(m_LoggedInUser, m_PostFilterGroups);
 			this.Invoke(new Action(this.resetBinding));
 		}
-		
+
 		private void enableControls()
 		{
 			this.textBoxStatus.Enabled = true;

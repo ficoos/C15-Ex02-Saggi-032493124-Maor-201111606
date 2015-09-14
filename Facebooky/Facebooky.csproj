@@ -59,11 +59,13 @@
     <Compile Include="FormSohrtcutsSettings.Designer.cs">
       <DependentUpon>FormSohrtcutsSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="ICommand.cs" />
     <Compile Include="IPostChainLink.cs" />
     <Compile Include="PostFilterFactory.cs" />
     <Compile Include="ProxyDataSource.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SendPostCommand.cs" />
     <Compile Include="SerializerFactory.cs" />
     <Compile Include="FormAddNewGroup.cs">
       <SubType>Form</SubType>

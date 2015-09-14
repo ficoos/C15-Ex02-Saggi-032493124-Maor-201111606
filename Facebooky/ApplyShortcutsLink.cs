@@ -2,7 +2,7 @@
 
 namespace Facebooky
 {
-	class ApplyShortcutsLink: IPostChainLink
+	class ApplyShortcutsLink : IPostChainLink
 	{
 		public IPostChainLink NextLink { get; set; }
 		public bool Enabled { get; set; }
