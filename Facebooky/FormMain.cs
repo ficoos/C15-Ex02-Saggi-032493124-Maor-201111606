@@ -1,4 +1,6 @@
-﻿namespace Facebooky
+﻿using System.Collections.Specialized;
+
+namespace Facebooky
 {
 	using System;
 	using System.Collections.Generic;
@@ -54,9 +56,29 @@
 
 		private UserPaths m_UserPaths;
 
+		private readonly StringDictionary r_ShortcutsToReplace;
+
+		private IPostChainLink m_ChainOfResponsibility;
+
+		private void initialShortcutsFeature()
+		{
+			CheckNetworkLink checkNetworkLink = new CheckNetworkLink();
+			checkNetworkLink.Enabled = checkBox_PostOnNetworkReturn.Checked;
+			checkNetworkLink.LoggedInUser = m_LoggedInUser;
+			this.r_ShortcutsToReplace.Add("a", "testA");
+			this.r_ShortcutsToReplace.Add("b", "testB");
+			ApplyShortcutsLink shortcutsLink = new ApplyShortcutsLink(r_ShortcutsToReplace);
+			shortcutsLink.Enabled = checkBoxEnableShortcuts.Checked;
+			shortcutsLink.NextLink = checkNetworkLink;
+			m_ChainOfResponsibility = shortcutsLink;
+			this.checkBoxEnableShortcuts.CheckStateChanged += delegate(object i_Sender, EventArgs i_Args) { shortcutsLink.Enabled = ((CheckBox)i_Sender).Checked; };
+			this.checkBox_PostOnNetworkReturn.CheckStateChanged += delegate(object i_Sender, EventArgs i_Args) { checkNetworkLink.Enabled = ((CheckBox)i_Sender).Checked; }; 
+		}
+
 		public FormMain()
 		{
 			this.m_PostFilterGroups = new List<PostFilterGroup>();
+			this.r_ShortcutsToReplace = new StringDictionary();
 			this.InitializeComponent();
 		}
 
@@ -111,6 +133,7 @@
 				this.enableControls();
 				new Thread(bindUserToDataSource).Start();
 				this.loadPostFilters();
+				initialShortcutsFeature();
 			}
 		}
 
@@ -132,6 +155,9 @@
 			this.checkBoxShowFiltered.Enabled = true;
 			this.listBoxEvents.Enabled = true;
 			this.listBoxNewsFeed.Enabled = true;
+			this.checkBoxEnableShortcuts.Enabled = true;
+			this.checkBox_PostOnNetworkReturn.Enabled = true;
+			this.buttonShortcutsSettings.Enabled = true;
 		}
 
 		private void fetchEvents()
@@ -171,8 +197,9 @@
 			string statusText = this.textBoxStatus.Text.Trim();
 			if (!string.IsNullOrEmpty(statusText))
 			{
-				Status status = this.m_LoggedInUser.PostStatus(this.textBoxStatus.Text);
-				MessageBox.Show(@"Status Posted! ID: " + status.Id);
+				this.m_ChainOfResponsibility.HandlePost(new PostInfo(statusText));
+				//Status status = this.m_LoggedInUser.PostStatus(this.textBoxStatus.Text);
+				//MessageBox.Show(@"Status Posted! ID: " + status.Id);
 			}
 		}
 
@@ -243,6 +270,14 @@
 					this.m_LoggedInUser.PostStatus(cannedPost.CompiledPost.StatusText);
 				}
 			}
+		}
+
+
+
+		private void buttonShortcutsSettings_Click(object i_Sender, EventArgs i_Args)
+		{
+			FormShortcutsSettings form = new FormShortcutsSettings(r_ShortcutsToReplace);
+			form.ShowDialog();
 		}
 	}
 }
