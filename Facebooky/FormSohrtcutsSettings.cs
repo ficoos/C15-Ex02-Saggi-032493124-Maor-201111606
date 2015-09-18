@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Facebooky
@@ -52,14 +53,14 @@ namespace Facebooky
 			}
 			else
 			{
-				foreach (string key in r_ShortcutsDickDictionary.Keys)
+				foreach (string key in this.r_ShortcutsDickDictionary.Keys.Cast<string>()
+					.Where(key => key.IndexOf(i_To) >= 0 || this.r_ShortcutsDickDictionary[key]
+						.IndexOf(i_From) >= 0))
 				{
-					if (key.IndexOf(i_To) >= 0 || r_ShortcutsDickDictionary[key].IndexOf(i_From) >= 0)
-					{
-						legalReplace = false;
-					}
+					legalReplace = false;
 				}
 			}
+
 			return legalReplace;
 		}
 

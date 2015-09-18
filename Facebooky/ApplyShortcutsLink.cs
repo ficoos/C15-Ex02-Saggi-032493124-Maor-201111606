@@ -16,15 +16,12 @@ namespace Facebooky
 
 		public void HandlePost(PostInfo i_Post)
 		{
-			if (Enabled)
+			if (Enabled && r_ShortcutsToReplace.Count > 0)
 			{
-				if (r_ShortcutsToReplace.Count > 0)
+				foreach (string key in r_ShortcutsToReplace.Keys)
 				{
-					foreach (string key in r_ShortcutsToReplace.Keys)
-					{
 
-						i_Post.StatusText = i_Post.StatusText.Replace(key, r_ShortcutsToReplace[key]);
-					}
+					i_Post.StatusText = i_Post.StatusText.Replace(key, r_ShortcutsToReplace[key]);
 				}
 			}
 			if (NextLink != null)

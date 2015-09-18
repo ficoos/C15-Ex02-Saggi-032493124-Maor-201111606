@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
+using System.Net.NetworkInformation;
 
 namespace Facebooky
 {
@@ -18,9 +19,11 @@ namespace Facebooky
 
 		public void DoWhenNetworkChange(object i_Sender, EventArgs i_Args)
 		{
-			if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
-			this.Execute();
-			System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged -= DoWhenNetworkChange;
+			if (!NetworkInterface.GetIsNetworkAvailable())
+			{
+				this.Execute();
+				NetworkChange.NetworkAvailabilityChanged -= DoWhenNetworkChange;	
+			}
 		}
 	}
 }

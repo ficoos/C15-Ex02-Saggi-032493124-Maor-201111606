@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.Windows.Forms;
 using System.Net.NetworkInformation;
-using System.Windows.Forms;
-
 using FacebookWrapper.ObjectModel;
 
 namespace Facebooky
@@ -13,15 +11,12 @@ namespace Facebooky
 		public User LoggedInUser { get; set; }
 		public void HandlePost(PostInfo i_Post)
 		{
-			SendPostCommand postCommand = new SendPostCommand();
-			postCommand.Post = i_Post;
-			postCommand.LoggedInUser = LoggedInUser;
-			bool networkAvalable = System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+			SendPostCommand postCommand = new SendPostCommand { Post = i_Post, LoggedInUser = this.LoggedInUser };
+			bool networkAvalable = NetworkInterface.GetIsNetworkAvailable();
 			if (Enabled && !networkAvalable)
 			{
-				System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged += (i_Sender, i_Args) => { postCommand.Execute(); };
 				MessageBox.Show(@"Network is unavailable. The post will be posted when network is returns.");
-				System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged +=
+				NetworkChange.NetworkAvailabilityChanged +=
 					postCommand.DoWhenNetworkChange;
 			}
 			else
@@ -33,7 +28,5 @@ namespace Facebooky
 				NextLink.HandlePost(i_Post);
 			}
 		}
-
-
 	}
 }

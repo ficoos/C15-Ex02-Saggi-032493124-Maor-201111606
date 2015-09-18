@@ -12,8 +12,8 @@ namespace Facebooky
 
 		public StringPair(string i_Key, string i_Value)
 		{
-			Key = i_Key;
-			Value = i_Value;
+			Key = i_Key ?? string.Empty;
+			Value = i_Value ?? string.Empty; 
 		}
 		public StringPair() { }
 	}

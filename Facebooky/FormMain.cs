@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using System.Linq;
 
 namespace Facebooky
 {
@@ -69,8 +70,8 @@ namespace Facebooky
 			shortcutsLink.Enabled = checkBoxEnableShortcuts.Checked;
 			shortcutsLink.NextLink = checkNetworkLink;
 			m_ChainOfResponsibility = shortcutsLink;
-			this.checkBoxEnableShortcuts.CheckStateChanged += delegate(object i_Sender, EventArgs i_Args) { shortcutsLink.Enabled = ((CheckBox)i_Sender).Checked; };
-			this.checkBox_PostOnNetworkReturn.CheckStateChanged += delegate(object i_Sender, EventArgs i_Args) { checkNetworkLink.Enabled = ((CheckBox)i_Sender).Checked; };
+			this.checkBoxEnableShortcuts.CheckStateChanged += (i_Sender,i_Args)=>  shortcutsLink.Enabled = ((CheckBox)i_Sender).Checked;
+			this.checkBox_PostOnNetworkReturn.CheckStateChanged += (i_Sender, i_Args) => checkNetworkLink.Enabled = ((CheckBox)i_Sender).Checked;
 		}
 
 		public FormMain()
@@ -197,16 +198,13 @@ namespace Facebooky
 			string statusText = this.textBoxStatus.Text.Trim();
 			if (!string.IsNullOrEmpty(statusText))
 			{
-				this.m_ChainOfResponsibility.HandlePost(new PostInfo(statusText));
-				//Status status = this.m_LoggedInUser.PostStatus(this.textBoxStatus.Text);
-				//MessageBox.Show(@"Status Posted! ID: " + status.Id);
+				this.m_ChainOfResponsibility.HandlePost(new PostInfo { StatusText = statusText});
 			}
 		}
 
 		private void buttonFilterSettings_Click(object i_Sender, EventArgs i_Args)
 		{
-			FormFilterSettings filterSettingsDialog = new FormFilterSettings();
-			filterSettingsDialog.PostFilterGroups = this.m_PostFilterGroups;
+			FormFilterSettings filterSettingsDialog = new FormFilterSettings { PostFilterGroups = this.m_PostFilterGroups };
 			filterSettingsDialog.ShowDialog();
 			this.savePostFilters();
 			ProxyDataSource proxy = proxyDataSourceBindingSource.DataSource as ProxyDataSource;
@@ -219,11 +217,8 @@ namespace Facebooky
 
 		private void saveUserShortcuts()
 		{
-			List<StringPair> exportList = new List<StringPair>();
-			foreach (string key in r_ShortcutsToReplace.Keys)
-			{
-				exportList.Add(new StringPair(key, r_ShortcutsToReplace[key]));
-			}
+			List<StringPair> exportList = (this.r_ShortcutsToReplace.Keys.Cast<string>()
+				.Select(key => new StringPair(key, this.r_ShortcutsToReplace[key]))).ToList();
 			XmlSerializer serializer = new XmlSerializer(typeof(List<StringPair>));
 			using (TextWriter writer = new StreamWriter(this.m_UserPaths.ShortcutsPath))
 			{
