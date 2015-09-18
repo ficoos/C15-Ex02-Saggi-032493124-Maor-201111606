@@ -1,4 +1,7 @@
-﻿namespace Facebooky
+﻿using System.Collections.Specialized;
+using System.Linq;
+
+namespace Facebooky
 {
 	using System;
 	using System.Collections.Generic;
@@ -54,9 +57,27 @@
 
 		private UserPaths m_UserPaths;
 
+		private readonly StringDictionary r_ShortcutsToReplace;
+
+		private IPostChainLink m_ChainOfResponsibility;
+
+		private void initialChainLinksFeatures()
+		{
+			CheckNetworkLink checkNetworkLink = new CheckNetworkLink();
+			checkNetworkLink.Enabled = checkBox_PostOnNetworkReturn.Checked;
+			checkNetworkLink.LoggedInUser = m_LoggedInUser;
+			ApplyShortcutsLink shortcutsLink = new ApplyShortcutsLink(r_ShortcutsToReplace);
+			shortcutsLink.Enabled = checkBoxEnableShortcuts.Checked;
+			shortcutsLink.NextLink = checkNetworkLink;
+			m_ChainOfResponsibility = shortcutsLink;
+			this.checkBoxEnableShortcuts.CheckStateChanged += (i_Sender,i_Args)=>  shortcutsLink.Enabled = ((CheckBox)i_Sender).Checked;
+			this.checkBox_PostOnNetworkReturn.CheckStateChanged += (i_Sender, i_Args) => checkNetworkLink.Enabled = ((CheckBox)i_Sender).Checked;
+		}
+
 		public FormMain()
 		{
 			this.m_PostFilterGroups = new List<PostFilterGroup>();
+			this.r_ShortcutsToReplace = new StringDictionary();
 			this.InitializeComponent();
 		}
 
@@ -92,6 +113,7 @@
 				this.m_UserPaths = new UserPaths(this.m_LoggedInUser);
 				saveAccessToken(result.AccessToken);
 				this.initializeUserDirectory();
+				this.buttonLogIn.Enabled = false;
 			}
 		}
 
@@ -111,6 +133,8 @@
 				this.enableControls();
 				new Thread(bindUserToDataSource).Start();
 				this.loadPostFilters();
+				this.loadShortcuts();
+				this.initialChainLinksFeatures();
 			}
 		}
 
@@ -120,7 +144,7 @@
 			proxyDataSourceBindingSource.DataSource = new ProxyDataSource(m_LoggedInUser, m_PostFilterGroups);
 			this.Invoke(new Action(this.resetBinding));
 		}
-		
+
 		private void enableControls()
 		{
 			this.textBoxStatus.Enabled = true;
@@ -132,6 +156,9 @@
 			this.checkBoxShowFiltered.Enabled = true;
 			this.listBoxEvents.Enabled = true;
 			this.listBoxNewsFeed.Enabled = true;
+			this.checkBoxEnableShortcuts.Enabled = true;
+			this.checkBox_PostOnNetworkReturn.Enabled = true;
+			this.buttonShortcutsSettings.Enabled = true;
 		}
 
 		private void fetchEvents()
@@ -171,15 +198,13 @@
 			string statusText = this.textBoxStatus.Text.Trim();
 			if (!string.IsNullOrEmpty(statusText))
 			{
-				Status status = this.m_LoggedInUser.PostStatus(this.textBoxStatus.Text);
-				MessageBox.Show(@"Status Posted! ID: " + status.Id);
+				this.m_ChainOfResponsibility.HandlePost(new PostInfo { StatusText = statusText});
 			}
 		}
 
 		private void buttonFilterSettings_Click(object i_Sender, EventArgs i_Args)
 		{
-			FormFilterSettings filterSettingsDialog = new FormFilterSettings();
-			filterSettingsDialog.PostFilterGroups = this.m_PostFilterGroups;
+			FormFilterSettings filterSettingsDialog = new FormFilterSettings { PostFilterGroups = this.m_PostFilterGroups };
 			filterSettingsDialog.ShowDialog();
 			this.savePostFilters();
 			ProxyDataSource proxy = proxyDataSourceBindingSource.DataSource as ProxyDataSource;
@@ -187,6 +212,36 @@
 			{
 				proxy.UpdatePostFilterGroups(m_PostFilterGroups);
 				this.resetBinding();
+			}
+		}
+
+		private void saveUserShortcuts()
+		{
+			List<StringPair> exportList = (this.r_ShortcutsToReplace.Keys.Cast<string>()
+				.Select(key => new StringPair(key, this.r_ShortcutsToReplace[key]))).ToList();
+			XmlSerializer serializer = new XmlSerializer(typeof(List<StringPair>));
+			using (TextWriter writer = new StreamWriter(this.m_UserPaths.ShortcutsPath))
+			{
+				serializer.Serialize(writer, exportList);
+			}
+		}
+		private void loadShortcuts()
+		{
+			
+			XmlSerializer serializer = new XmlSerializer(typeof(List<StringPair>));
+			if (File.Exists(this.m_UserPaths.ShortcutsPath))
+			{
+				using (TextReader reader = new StreamReader(this.m_UserPaths.ShortcutsPath))
+				{
+					List<StringPair> importList = (List<StringPair>)serializer.Deserialize(reader);
+					if (importList != null)
+					{
+						foreach (StringPair pair in importList)
+						{
+							this.r_ShortcutsToReplace.Add(pair.Key, pair.Value);
+						}
+					}
+				}
 			}
 		}
 
@@ -243,6 +298,15 @@
 					this.m_LoggedInUser.PostStatus(cannedPost.CompiledPost.StatusText);
 				}
 			}
+		}
+
+
+
+		private void buttonShortcutsSettings_Click(object i_Sender, EventArgs i_Args)
+		{
+			FormShortcutsSettings form = new FormShortcutsSettings(r_ShortcutsToReplace);
+			form.ShowDialog();
+			saveUserShortcuts();
 		}
 	}
 }
