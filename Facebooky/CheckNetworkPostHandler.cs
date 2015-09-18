@@ -4,11 +4,20 @@ using FacebookWrapper.ObjectModel;
 
 namespace Facebooky
 {
-	class CheckNetworkLink : IPostChainLink
+	public class CheckNetworkPostHandler : IPostHandler
 	{
-		public IPostChainLink NextLink { get; set; }
+		public string Name
+		{
+			get
+			{
+				return "Check Network Status";
+			}
+		}
+
 		public bool Enabled { get; set; }
+
 		public User LoggedInUser { get; set; }
+
 		public void HandlePost(PostInfo i_Post)
 		{
 			SendPostCommand postCommand = new SendPostCommand { Post = i_Post, LoggedInUser = this.LoggedInUser };
@@ -22,10 +31,6 @@ namespace Facebooky
 			else
 			{
 				postCommand.Execute();
-			}
-			if (NextLink != null)
-			{
-				NextLink.HandlePost(i_Post);
 			}
 		}
 	}

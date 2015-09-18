@@ -32,6 +32,7 @@ namespace Facebooky
 				return Path.Combine(UserSettingsPath, "filters.xml");
 			}
 		}
+
 		public string ShortcutsPath
 		{
 			get
@@ -39,6 +40,7 @@ namespace Facebooky
 				return Path.Combine(UserSettingsPath, "Shortcuts.xml");
 			}
 		}
+
 		public string CannedPostsDirectory
 		{
 			get

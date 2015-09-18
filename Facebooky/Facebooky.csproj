@@ -50,9 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplyShortcutsLink.cs" />
+    <Compile Include="ApplyShortcutsPostHandler.cs" />
     <Compile Include="AssemblyAttributeExtension.cs" />
-    <Compile Include="CheckNetworkLink.cs" />
+    <Compile Include="ChainPostHandler.cs" />
+    <Compile Include="CheckNetworkPostHandler.cs" />
+    <Compile Include="ShortcutDictionarySerializer.cs" />
     <Compile Include="FormSohrtcutsSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,7 +62,10 @@
       <DependentUpon>FormSohrtcutsSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="ICommand.cs" />
-    <Compile Include="IPostChainLink.cs" />
+    <Compile Include="IPostHandler.cs" />
+    <Compile Include="KeyValueListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PostFilterFactory.cs" />
     <Compile Include="ProxyDataSource.cs">
       <SubType>Component</SubType>
@@ -119,7 +124,6 @@
     <Compile Include="PostFilterGroup.cs" />
     <Compile Include="PostInfo.cs" />
     <Compile Include="StaticTextNode.cs" />
-    <Compile Include="StringPair.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

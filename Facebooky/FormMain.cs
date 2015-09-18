@@ -1,5 +1,7 @@
-﻿using System.Collections.Specialized;
+﻿using System.Drawing;
 using System.Linq;
+using System.Text;
+using System.Xml;
 
 namespace Facebooky
 {
@@ -57,27 +59,43 @@ namespace Facebooky
 
 		private UserPaths m_UserPaths;
 
-		private readonly StringDictionary r_ShortcutsToReplace;
+		private readonly Dictionary<string, string> r_ShortcutsToReplace;
 
-		private IPostChainLink m_ChainOfResponsibility;
+		private ChainPostHandler m_PostHandlerChain;
 
 		private void initialChainLinksFeatures()
 		{
-			CheckNetworkLink checkNetworkLink = new CheckNetworkLink();
-			checkNetworkLink.Enabled = checkBox_PostOnNetworkReturn.Checked;
-			checkNetworkLink.LoggedInUser = m_LoggedInUser;
-			ApplyShortcutsLink shortcutsLink = new ApplyShortcutsLink(r_ShortcutsToReplace);
-			shortcutsLink.Enabled = checkBoxEnableShortcuts.Checked;
-			shortcutsLink.NextLink = checkNetworkLink;
-			m_ChainOfResponsibility = shortcutsLink;
-			this.checkBoxEnableShortcuts.CheckStateChanged += (i_Sender,i_Args)=>  shortcutsLink.Enabled = ((CheckBox)i_Sender).Checked;
-			this.checkBox_PostOnNetworkReturn.CheckStateChanged += (i_Sender, i_Args) => checkNetworkLink.Enabled = ((CheckBox)i_Sender).Checked;
+			m_PostHandlerChain = new ChainPostHandler
+			{
+				PostHandler = new ApplyShortcutsPostHandler(r_ShortcutsToReplace)
+				{
+					Enabled = true,
+				},
+				NextPostHandler = new ChainPostHandler
+				{
+					PostHandler = new CheckNetworkPostHandler
+					{
+						Enabled = true,
+						LoggedInUser = m_LoggedInUser,
+					},
+				}
+			};
+
+			foreach (IPostHandler postHandler in m_PostHandlerChain)
+			{
+				ToolStripButton postHandlerButton = new ToolStripButton(postHandler.Name);
+				postHandlerButton.Click += (i_Sender, i_Args) => postHandlerButton.Checked = !postHandlerButton.Checked;
+				postHandlerButton.Checked = postHandler.Enabled;
+				IPostHandler handler = postHandler;
+				postHandlerButton.CheckStateChanged += (i_Sender, i_Args) => handler.Enabled = ((ToolStripButton)i_Sender).Checked;
+				contextMenuPostHandlers.Items.Add(postHandlerButton);
+			}
 		}
 
 		public FormMain()
 		{
 			this.m_PostFilterGroups = new List<PostFilterGroup>();
-			this.r_ShortcutsToReplace = new StringDictionary();
+			this.r_ShortcutsToReplace = new Dictionary<string, string>();
 			this.InitializeComponent();
 		}
 
@@ -153,11 +171,10 @@ namespace Facebooky
 			this.buttonSetStatus.Enabled = true;
 			this.buttonFilterSettings.Enabled = true;
 			this.buttonCannedPost.Enabled = true;
+			this.buttonPostHandlers.Enabled = true;
 			this.checkBoxShowFiltered.Enabled = true;
 			this.listBoxEvents.Enabled = true;
 			this.listBoxNewsFeed.Enabled = true;
-			this.checkBoxEnableShortcuts.Enabled = true;
-			this.checkBox_PostOnNetworkReturn.Enabled = true;
 			this.buttonShortcutsSettings.Enabled = true;
 		}
 
@@ -198,7 +215,7 @@ namespace Facebooky
 			string statusText = this.textBoxStatus.Text.Trim();
 			if (!string.IsNullOrEmpty(statusText))
 			{
-				this.m_ChainOfResponsibility.HandlePost(new PostInfo { StatusText = statusText});
+				this.m_PostHandlerChain.HandlePost(new PostInfo { StatusText = statusText });
 			}
 		}
 
@@ -217,30 +234,19 @@ namespace Facebooky
 
 		private void saveUserShortcuts()
 		{
-			List<StringPair> exportList = (this.r_ShortcutsToReplace.Keys.Cast<string>()
-				.Select(key => new StringPair(key, this.r_ShortcutsToReplace[key]))).ToList();
-			XmlSerializer serializer = new XmlSerializer(typeof(List<StringPair>));
-			using (TextWriter writer = new StreamWriter(this.m_UserPaths.ShortcutsPath))
+			using (XmlWriter writer = new XmlTextWriter(this.m_UserPaths.ShortcutsPath, Encoding.UTF8))
 			{
-				serializer.Serialize(writer, exportList);
+				ShortcutDictionarySerializer.Serialize(r_ShortcutsToReplace, writer);	
 			}
 		}
+
 		private void loadShortcuts()
 		{
-			
-			XmlSerializer serializer = new XmlSerializer(typeof(List<StringPair>));
 			if (File.Exists(this.m_UserPaths.ShortcutsPath))
 			{
-				using (TextReader reader = new StreamReader(this.m_UserPaths.ShortcutsPath))
+				using (XmlReader reader = new XmlTextReader(this.m_UserPaths.ShortcutsPath))
 				{
-					List<StringPair> importList = (List<StringPair>)serializer.Deserialize(reader);
-					if (importList != null)
-					{
-						foreach (StringPair pair in importList)
-						{
-							this.r_ShortcutsToReplace.Add(pair.Key, pair.Value);
-						}
-					}
+					ShortcutDictionarySerializer.Deserialize(r_ShortcutsToReplace, reader);
 				}
 			}
 		}
@@ -300,13 +306,17 @@ namespace Facebooky
 			}
 		}
 
-
-
 		private void buttonShortcutsSettings_Click(object i_Sender, EventArgs i_Args)
 		{
 			FormShortcutsSettings form = new FormShortcutsSettings(r_ShortcutsToReplace);
 			form.ShowDialog();
 			saveUserShortcuts();
+		}
+
+		private void buttonPostHandlers_Click(object i_Sender, EventArgs i_Args)
+		{
+			Button button = (Button)i_Sender;
+			contextMenuPostHandlers.Show(button, new Point(0, button.Height));
 		}
 	}
 }
