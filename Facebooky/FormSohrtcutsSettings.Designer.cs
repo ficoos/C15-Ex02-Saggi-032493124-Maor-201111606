@@ -111,7 +111,7 @@
 			this.listBoxShortcutsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.listBoxShortcutsList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+			this.listBoxShortcutsList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
 			this.listBoxShortcutsList.FormattingEnabled = true;
 			this.listBoxShortcutsList.Location = new System.Drawing.Point(25, 49);
 			this.listBoxShortcutsList.Name = "listBoxShortcutsList";

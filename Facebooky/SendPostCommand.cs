@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Windows.Forms;
-using FacebookWrapper.ObjectModel;
 using System.Net.NetworkInformation;
+using System.Windows.Forms;
+
+using FacebookWrapper.ObjectModel;
 
 namespace Facebooky
 {
-	class SendPostCommand : ICommand
+	public class SendPostCommand : ICommand
 	{
 		public User LoggedInUser { get; set; }
 
@@ -15,15 +16,6 @@ namespace Facebooky
 		{
 			Status status = LoggedInUser.PostStatus(Post.StatusText);
 			MessageBox.Show(@"Status Posted! ID: " + status.Id);
-		}
-
-		public void DoWhenNetworkChange(object i_Sender, EventArgs i_Args)
-		{
-			if (!NetworkInterface.GetIsNetworkAvailable())
-			{
-				this.Execute();
-				NetworkChange.NetworkAvailabilityChanged -= DoWhenNetworkChange;	
-			}
 		}
 	}
 }

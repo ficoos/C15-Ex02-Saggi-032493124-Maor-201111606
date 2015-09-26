@@ -54,6 +54,7 @@
     <Compile Include="AssemblyAttributeExtension.cs" />
     <Compile Include="ChainPostHandler.cs" />
     <Compile Include="CheckNetworkPostHandler.cs" />
+    <Compile Include="NetworkCommandScheduler.cs" />
     <Compile Include="ShortcutDictionarySerializer.cs" />
     <Compile Include="FormSohrtcutsSettings.cs">
       <SubType>Form</SubType>

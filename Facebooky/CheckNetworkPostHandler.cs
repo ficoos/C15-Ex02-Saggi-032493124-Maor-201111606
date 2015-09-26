@@ -25,8 +25,7 @@ namespace Facebooky
 			if (Enabled && !networkAvalable)
 			{
 				MessageBox.Show(@"Network is unavailable. The post will be posted when network is returns.");
-				NetworkChange.NetworkAvailabilityChanged +=
-					postCommand.DoWhenNetworkChange;
+				NetworkCommandScheduler.ScheduleOnNetworkAvailability(postCommand);
 			}
 			else
 			{
